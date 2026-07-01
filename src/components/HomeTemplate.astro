@@ -1,0 +1,708 @@
+---
+import Layout from '../layouts/Layout.astro';
+import ServiceCard from './ServiceCard.astro';
+import { servicesData } from '@/config/services';
+import { projectsData } from '../data/projects';
+import { useTranslations } from '../data/translations';
+import { Phone, MessageCircle, ArrowRight, Check, ChevronDown, Star, Compass, ShieldCheck, Hammer, Layers, Disc, PenTool, Home, Gift, Play, Mail, FileText } from '@lucide/astro';
+import { BUSINESS } from '@/config/business';
+import { CONTACT } from '@/config/contact';
+import { HERO } from '@/config/hero';
+import { STATS } from '@/config/stats';
+import { TESTIMONIALS } from '@/config/testimonials';
+import { SOCIAL } from '@/config/social';
+
+interface Props {
+  lang: 'en' | 'hi';
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+// Get services & projects
+const services = Object.values(servicesData).map(s => s[lang]);
+const featuredProjects = projectsData.slice(0, 4); // Fetch 4 projects for the vertical cards grid
+
+const phoneNo = CONTACT.phone;
+const whatsappLink = `https://wa.me/${CONTACT.whatsapp.replace('+', '')}?text=${encodeURIComponent(
+  lang === 'hi'
+    ? 'नमस्ते संतोष जी, मुझे घर के लिए लकड़ी का कस्टम काम (फर्नीचर/दरवाजा) करवाना है।'
+    : 'Hello Santosh Ji, I am looking for custom woodwork/furniture services in Patna.'
+)}`;
+
+// Testimonials (from testimonials config)
+const testimonials = TESTIMONIALS.map(t => ({
+  name: t.name[lang],
+  role: t.role[lang],
+  text: t.text[lang],
+  stars: t.stars,
+  avatar: t.image
+}));
+
+// FAQs (from screenshots layouts)
+const faqs = [
+  {
+    index: '01',
+    q: lang === 'hi' ? 'क्या आप साइट पर नाप लेने और चर्चा के लिए पटना में कहीं भी आ सकते हैं?' : 'Do you visit locations inside Patna for measurements?',
+    a: lang === 'hi'
+      ? 'हाँ, संतोष शर्मा जी स्वयं पटना और उसके आसपास (दानापुर, कंकड़बाग, बेली रोड, बोरिंग रोड, अनीसाबाद, आदि) में आपकी सुविधानुसार साइट पर आकर फ्री नाप और एस्टीमेट प्रदान करते हैं।'
+      : 'Yes! Santosh Sharma personally visits your location anywhere in Patna and nearby local regions (Kankarbagh, Boring Road, Bailey Road, Danapur, etc.) at your convenience for space verification, completely free of charge.'
+  },
+  {
+    index: '02',
+    q: lang === 'hi' ? 'फर्नीचर के काम के लिए आप कौन सी लकड़ी का उपयोग करते हैं?' : 'What types of wood do you use for custom furniture?',
+    a: lang === 'hi'
+      ? 'हम ग्राहक की पसंद और बजट के अनुसार 100% असली पक्की सागवान (Teak Wood), साल (Sal Wood), महोगनी, और मरीन ग्रेड प्लाईवुड (BWR/BWP) का उपयोग करते हैं जो दीमक और नमी से सुरक्षित रहती है।'
+      : 'We use high-grade seasoned Teak wood (Sagwan), Sal wood, Mahogany, and commercial/waterproof marine-grade plywood (BWR/BWP) depending on your requirements and budget. All woods are treated for moisture and termites.'
+  },
+  {
+    index: '03',
+    q: lang === 'hi' ? 'कस्टम फर्नीचर बनाने में कितना समय लगता है?' : 'How long does it take to manufacture and install custom wardrobes?',
+    a: lang === 'hi'
+      ? 'काम के आकार के अनुसार समय बदलता है। साधारणतया एक सामान्य वार्डरोब या डबल बेड को 7 से 12 दिनों के भीतर तैयार कर आपके घर पर फिट कर दिया जाता है।'
+      : 'Depending on the volume of work, a standard sliding wardrobe or a custom bed takes about 7 to 12 days to manufacture and install at your site.'
+  },
+  {
+    index: '04',
+    q: lang === 'hi' ? 'क्या आप पुराने फर्नीचर की मरम्मत या री-पॉलिशिंग का काम भी करते हैं?' : 'Do you undertake old furniture repair or re-polishing work?',
+    a: lang === 'hi'
+      ? 'हाँ, हम पुराने मूल्यवान फर्नीचर की मरम्मत, हार्डवेयर अपग्रेड, मेलामाइन या पीयू पॉलिशिंग का काम भी करते हैं जिससे आपका पुराना फर्नीचर बिल्कुल नया जैसा दिखने लगता है।'
+      : 'Yes, we provide premium repair services, hardware replacements (hinges, locks, slides), and high-end Melamine or PU wood re-polishing to restore your old furniture to brand new conditions.'
+  }
+];
+
+const canonicalPath = lang === 'hi' ? '/hi' : '';
+---
+
+<Layout
+  title={lang === 'hi' ? 'पटना में नंबर 1 बढ़ई और कस्टम फर्नीचर निर्माता' : 'Best Custom Carpenter & Modular Furniture Maker in Patna'}
+  description={lang === 'hi' 
+    ? 'संतोष शर्मा बढ़ई (पटना फर्नीचर) - सागवान लकड़ी के दरवाजे, अलमारी, मॉड्यूलर किचन और कंक्रीट कॉर्निस डिज़ाइन के विशेषज्ञ। 100% भरोसेमंद कारीगरी।'
+    : 'Santosh Sharma Carpenter offers premium custom woodwork, sliding wardrobes, designer doors, beds, and concrete exterior cornice molds in Patna. Free site visits.'}
+  lang={lang}
+  canonicalPath={canonicalPath}
+>
+  
+  <!-- SECTION 1: HERO SECTION (Split-layout Replicating Screenshot 2026-07-01 203445.png) -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-16">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center min-h-[75vh]">
+      
+      <!-- Left side: Text Stack -->
+      <div class="lg:col-span-6 space-y-6 text-left">
+        <!-- Subtitle eyebrow -->
+        <span class="text-gold font-serif text-xs font-bold uppercase tracking-widest block">
+          {HERO.eyebrow[lang]}
+        </span>
+
+        <!-- Headline (Space Grotesk, sentence-case, dot terminated) -->
+        <h1 class="text-4xl sm:text-6xl font-serif font-medium tracking-tight text-walnut leading-[1.08]">
+          {HERO.title[lang]}
+        </h1>
+
+        <!-- Short Description -->
+        <p class="text-sm sm:text-base text-wood leading-relaxed font-sans font-light max-w-xl">
+          {HERO.description[lang]}
+        </p>
+
+        <!-- Solid Ocher Buttons -->
+        <div class="flex flex-wrap items-center gap-3.5 pt-4">
+          <a
+            href={whatsappLink}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn-primary"
+          >
+            <span>{HERO.cta.primary[lang]}</span>
+            <ArrowRight class="w-4 h-4" />
+          </a>
+          <a
+            href={`tel:${phoneNo}`}
+            class="btn-secondary"
+          >
+            <Phone class="w-4 h-4 text-gold" />
+            <span>{HERO.cta.secondary[lang]}</span>
+          </a>
+        </div>
+
+        <!-- Social Icons in Gold (Screenshot bottom-left) -->
+        <div class="pt-6 flex items-center space-x-5 text-gold text-xs font-mono">
+          <span class="text-wood/50 uppercase tracking-widest text-[9px]">Follow //</span>
+          <a href={SOCIAL.facebook} class="hover:text-walnut transition-colors">FB</a>
+          <a href={SOCIAL.twitter} class="hover:text-walnut transition-colors">TW</a>
+          <a href={SOCIAL.youtube} class="hover:text-walnut transition-colors">YT</a>
+          <a href={SOCIAL.linkedin} class="hover:text-walnut transition-colors">LN</a>
+        </div>
+      </div>
+
+      <!-- Right side: Woodwork Measuring image with floating contact card -->
+      <div class="lg:col-span-6 relative">
+        <div class="rounded-3xl overflow-hidden shadow-xl border border-hairline relative aspect-[4/3] sm:aspect-square lg:aspect-[4/3]">
+          <img
+            src="/images/references/furniture/woodwork-measuring.jpg"
+            alt="Carpenter measuring wooden panels"
+            class="w-full h-full object-cover"
+          />
+          <div class="absolute inset-0 bg-gradient-to-t from-black/25 to-transparent"></div>
+          
+          <!-- Floating contact card (Screenshot lower left corner on image) -->
+          <div class="absolute bottom-6 left-6 bg-white/95 p-4 rounded-xl shadow-lg border border-hairline text-left">
+            <span class="text-[9px] font-mono text-gold uppercase tracking-wider block">Direct Estimate Call</span>
+            <span class="text-sm font-bold text-walnut block mt-0.5">{phoneNo}</span>
+            <span class="text-[9px] text-wood/60 block">patnafurniture.in</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SECTION 2: HORIZONTAL FEATURES BAR (Below Hero Replicating Screenshot 2026-07-01 203516.png) -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 border-y border-hairline py-10 bg-white/50">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      
+      <!-- Feature 1: Years Experience -->
+      <div class="flex items-start space-x-4">
+        <div class="w-12 h-12 rounded-lg border border-gold flex items-center justify-center text-gold shrink-0">
+          <Compass class="w-5 h-5" />
+        </div>
+        <div class="space-y-1">
+          <h3 class="text-sm font-bold text-walnut font-sans">Years Experience</h3>
+          <p class="text-xs text-wood font-light leading-relaxed">
+            {lang === 'hi' ? '३० से अधिक वर्षों का विश्वसनीय लकड़ी काम का अनुभव।' : 'Over 30 years of custom craftsmanship in Bihar.'}
+          </p>
+        </div>
+      </div>
+
+      <!-- Feature 2: Premium Woods -->
+      <div class="flex items-start space-x-4">
+        <div class="w-12 h-12 rounded-lg border border-gold flex items-center justify-center text-gold shrink-0">
+          <Layers class="w-5 h-5" />
+        </div>
+        <div class="space-y-1">
+          <h3 class="text-sm font-bold text-walnut font-sans">Premium Woods</h3>
+          <p class="text-xs text-wood font-light leading-relaxed">
+            {lang === 'hi' ? 'पक्के असली सागवान और वाटरप्रूफ प्लाईवुड का उपयोग।' : 'Seasoned Teak and termite-safe waterproof ply core.'}
+          </p>
+        </div>
+      </div>
+
+      <!-- Feature 3: Quality Product -->
+      <div class="flex items-start space-x-4">
+        <div class="w-12 h-12 rounded-lg border border-gold flex items-center justify-center text-gold shrink-0">
+          <Disc class="w-5 h-5" />
+        </div>
+        <div class="space-y-1">
+          <h3 class="text-sm font-bold text-walnut font-sans">Quality Product</h3>
+          <p class="text-xs text-wood font-light leading-relaxed">
+            {lang === 'hi' ? 'अंतिम स्पर्श में उच्च-श्रेणी की चमक और चिकनाई।' : 'Fine precision joint finish with PU spray coatings.'}
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SECTION 3: ABOUT SECTION (Double Offset Image Replicating Screenshot 2026-07-01 203516.png) -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
+      
+      <!-- Left side: Offset Double Image grid -->
+      <div class="lg:col-span-6 grid grid-cols-12 gap-4 items-end relative">
+        <div class="col-span-7 rounded-2xl overflow-hidden shadow border border-hairline">
+          <img
+            src="/images/references/furniture/carpenter-assembling-joints.png"
+            alt="Woodworker assembling joints"
+            class="w-full h-[320px] object-cover"
+          />
+        </div>
+        <div class="col-span-5 rounded-2xl overflow-hidden shadow border border-hairline self-start mt-12">
+          <img
+            src="/images/references/furniture/mesa.jpg"
+            alt="Walnut console cabinet drawer"
+            class="w-full h-[220px] object-cover"
+          />
+        </div>
+      </div>
+
+      <!-- Right side: About Text Stack -->
+      <div class="lg:col-span-6 space-y-6">
+        <span class="text-gold font-serif text-xs font-bold uppercase tracking-widest block">
+          ABOUT SANTOSH SHARMA
+        </span>
+        <h2 class="text-3xl sm:text-4xl font-serif font-medium text-walnut leading-tight">
+          Custom Wood Works for Your Custom Tastes.
+        </h2>
+        <p class="text-sm sm:text-base text-wood leading-relaxed font-sans font-light">
+          {lang === 'hi'
+            ? 'संतोष शर्मा कारपेंटर पटना का एक विश्वसनीय नाम है, जहाँ हम बिना किसी बाहरी मार्जिन के सीधे आपके घर आकर अलमारी, पलंग और दरवाजे तैयार करते हैं। हम गुणवत्ता में कोई समझौता नहीं करते।'
+            : 'We provide hand-sanded Teak doors, custom sliding wardrobes, modular television cabinets, and designer beds. Everything is measured, detailed, and finished at your site to fit your custom layout.'}
+        </p>
+
+        <!-- Stats numbers row -->
+        <div class="grid grid-cols-2 gap-6 pt-4 border-t border-hairline">
+          <div class="space-y-1">
+            <span class="text-3xl sm:text-4xl font-serif font-semibold text-walnut">{STATS.completedProjects.number}</span>
+            <p class="text-xs text-wood uppercase tracking-wider font-mono">{STATS.completedProjects.label[lang]}</p>
+          </div>
+          <div class="space-y-1">
+            <span class="text-3xl sm:text-4xl font-serif font-semibold text-walnut">{STATS.experience.number}</span>
+            <p class="text-xs text-wood uppercase tracking-wider font-mono">{STATS.experience.label[lang]}</p>
+          </div>
+        </div>
+
+        <a
+          href={lang === 'hi' ? '/hi/about' : '/about'}
+          class="btn-primary mt-4"
+        >
+          <span>{lang === 'hi' ? 'अधिक जानें' : 'Learn More'}</span>
+          <ArrowRight class="w-4 h-4" />
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SECTION 4: SERVICES SECTION (Dark background strip + 6 white cards Replicating Screenshot 2026-07-01 203552.png) -->
+  <section id="services" class="bg-walnut text-white py-24 relative overflow-hidden">
+    <!-- Curved wood slats decorative background representation -->
+    <div class="absolute inset-0 bg-[#251b14] opacity-40 pointer-events-none"></div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 space-y-16">
+      
+      <!-- Center text header -->
+      <div class="text-center max-w-3xl mx-auto space-y-3">
+        <span class="text-gold font-serif text-xs font-bold uppercase tracking-widest block">
+          OUR SERVICES
+        </span>
+        <h2 class="text-3xl sm:text-5xl font-serif font-medium text-white leading-tight">
+          We Craft What You Imagine.
+        </h2>
+      </div>
+
+      <!-- Grid of 6 white service cards -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {services.slice(0, 6).map((service) => (
+          <div class="bg-white text-walnut p-8 rounded-2xl shadow-sm border border-hairline flex flex-col justify-between h-full hover:-translate-y-1 transition-all duration-300 group">
+            <div class="space-y-4">
+              <!-- Gold line icon -->
+              <div class="w-10 h-10 rounded bg-gold/5 flex items-center justify-center text-gold">
+                <Hammer class="w-5 h-5" />
+              </div>
+              <h3 class="text-lg font-bold text-walnut font-sans">{service.title}</h3>
+              <p class="text-xs text-wood leading-relaxed font-sans font-light line-clamp-3">
+                {service.description}
+              </p>
+            </div>
+            
+            <a
+              href={lang === 'hi' ? `/hi/services/${service.slug}` : `/services/${service.slug}`}
+              class="inline-flex items-center space-x-1.5 font-mono text-[10px] uppercase font-bold text-gold hover:text-gold-hover pt-6 tracking-widest"
+            >
+              <span>{lang === 'hi' ? 'विवरण पढ़ें' : 'Read More'}</span>
+              <ArrowRight class="w-3.5 h-3.5" />
+            </a>
+          </div>
+        ))}
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SECTION 5: WHY CHOOSE US SECTION (Screenshot 2026-07-01 203614.png) -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
+      
+      <!-- Left side: text checklist -->
+      <div class="lg:col-span-6 space-y-8">
+        <div class="space-y-3">
+          <span class="text-gold font-serif text-xs font-bold uppercase tracking-widest block">
+            WHY CHOOSE US
+          </span>
+          <h2 class="text-3xl sm:text-4xl font-serif font-medium text-walnut leading-tight">
+            Custom Wood Works for Your Custom Tastes.
+          </h2>
+        </div>
+
+        <div class="space-y-6">
+          
+          <!-- Item 1: Years Experience -->
+          <div class="flex items-start space-x-4">
+            <div class="w-10 h-10 rounded-full border border-gold flex items-center justify-center text-gold shrink-0 mt-1">
+              <Compass class="w-4 h-4" />
+            </div>
+            <div class="space-y-1">
+              <h3 class="text-base font-bold text-walnut">Years Experience</h3>
+              <p class="text-xs text-wood leading-relaxed font-sans font-light">
+                {lang === 'hi' ? '३०+ वर्षों से पटना में बेहतरीन लकड़ी के इंटीरियर्स का निर्माण कार्य।' : 'Over three decades of architectural carpentry blueprints across Bihar.'}
+              </p>
+            </div>
+          </div>
+
+          <!-- Item 2: Professional Staffs -->
+          <div class="flex items-start space-x-4">
+            <div class="w-10 h-10 rounded-full border border-gold flex items-center justify-center text-gold shrink-0 mt-1">
+              <Star class="w-4 h-4" />
+            </div>
+            <div class="space-y-1">
+              <h3 class="text-base font-bold text-walnut">Professional Staffs</h3>
+              <p class="text-xs text-wood leading-relaxed font-sans font-light">
+                {lang === 'hi' ? 'अनुभवी पॉलिशर्स और फिटिंग कारीगरों की हमारी इन-हाउस टीम।' : 'Highly trained local team for accurate measurements and finishings.'}
+              </p>
+            </div>
+          </div>
+
+          <!-- Item 3: Affordable Price -->
+          <div class="flex items-start space-x-4">
+            <div class="w-10 h-10 rounded-full border border-gold flex items-center justify-center text-gold shrink-0 mt-1">
+              <ShieldCheck class="w-4 h-4" />
+            </div>
+            <div class="space-y-1">
+              <h3 class="text-base font-bold text-walnut">Affordable Price</h3>
+              <p class="text-xs text-wood leading-relaxed font-sans font-light">
+                {lang === 'hi' ? 'बिना शोरूम मार्जिन के सीधे बढ़ई की बचत दरें।' : 'Direct-to-carpenter pricing saving you 30-40% showroom commissions.'}
+              </p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Right side: spotlight image -->
+      <div class="lg:col-span-6">
+        <div class="rounded-3xl overflow-hidden shadow-lg border border-hairline aspect-[4/3] sm:aspect-square lg:aspect-[4/3]">
+          <img
+            src="/images/references/furniture/carpenter-spotlight-measuring.png"
+            alt="Carpenter measuring wood under spotlight"
+            class="w-full h-full object-cover"
+          />
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SECTION 6: OUR PROCESS TIMELINE (Horizontal steps Replicating Screenshot 2026-07-01 203745.png) -->
+  <section class="border-y border-hairline py-24 bg-white/40">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
+      
+      <div class="text-center max-w-3xl mx-auto space-y-3">
+        <span class="text-gold font-serif text-xs font-bold uppercase tracking-widest block">
+          OUR PROCESS
+        </span>
+        <h2 class="text-3xl sm:text-4xl font-serif font-medium text-walnut leading-tight">
+          We Shape Wood Like No One Else.
+        </h2>
+      </div>
+
+      <!-- 4 Horizontal timeline steps with outline boxes -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
+        
+        <!-- Step 1 -->
+        <div class="space-y-4 text-center">
+          <div class="w-14 h-14 rounded bg-white border border-gold flex items-center justify-center text-gold mx-auto shadow-sm">
+            <PenTool class="w-5 h-5" />
+          </div>
+          <div class="space-y-1">
+            <h3 class="text-base font-bold text-walnut font-serif">01. Select Design</h3>
+            <p class="text-xs text-wood leading-relaxed font-sans font-light">
+              {lang === 'hi' ? 'डिज़ाइन चुनें या अपनी पसंद साझा करें।' : 'Discuss wardrobe or bed models with my father.'}
+            </p>
+          </div>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="space-y-4 text-center">
+          <div class="w-14 h-14 rounded bg-white border border-gold flex items-center justify-center text-gold mx-auto shadow-sm">
+            <Home class="w-5 h-5" />
+          </div>
+          <div class="space-y-1">
+            <h3 class="text-base font-bold text-walnut font-serif">02. Wood Selection</h3>
+            <p class="text-xs text-wood leading-relaxed font-sans font-light">
+              {lang === 'hi' ? 'असली सागवान लकड़ी और वाटरप्रूफ प्लाई चयन।' : 'Select Teak, Sal wood or waterproof BWR boards.'}
+            </p>
+          </div>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="space-y-4 text-center">
+          <div class="w-14 h-14 rounded bg-white border border-gold flex items-center justify-center text-gold mx-auto shadow-sm">
+            <Hammer class="w-5 h-5" />
+          </div>
+          <div class="space-y-1">
+            <h3 class="text-base font-bold text-walnut font-serif">03. Making Process</h3>
+            <p class="text-xs text-wood leading-relaxed font-sans font-light">
+              {lang === 'hi' ? 'सटीक नाप के अनुसार हैंड-सैंडेड निर्माण।' : 'Direct wood cutting, assembly, and joint polishing.'}
+            </p>
+          </div>
+        </div>
+
+        <!-- Step 4 -->
+        <div class="space-y-4 text-center">
+          <div class="w-14 h-14 rounded bg-white border border-gold flex items-center justify-center text-gold mx-auto shadow-sm">
+            <Gift class="w-5 h-5" />
+          </div>
+          <div class="space-y-1">
+            <h3 class="text-base font-bold text-walnut font-serif">04. Final Product</h3>
+            <p class="text-xs text-wood leading-relaxed font-sans font-light">
+              {lang === 'hi' ? 'घर पर फिटिंग और साफ़-सफाई के साथ काम पूरा।' : 'Timely modular installation at your home.'}
+            </p>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SECTION 7: GET STARTED WOOD BANNER (Centered Title Replicating Screenshot 2026-07-01 203755.png) -->
+  <section class="relative py-28 bg-[#151515] text-white overflow-hidden text-center">
+    <!-- Close-up table wood grain background image -->
+    <div class="absolute inset-0 z-0">
+      <img
+        src="/images/references/furniture/mesa.jpg"
+        alt="Wood table texture close up"
+        class="w-full h-full object-cover opacity-30"
+      />
+      <div class="absolute inset-0 bg-[#251b14]/75"></div>
+    </div>
+
+    <div class="max-w-4xl mx-auto px-4 relative z-10 space-y-6">
+      <!-- Play button icon bubble -->
+      <div class="w-14 h-14 rounded-full border border-white/40 flex items-center justify-center text-white mx-auto shadow-lg bg-white/5 backdrop-blur-sm">
+        <Play class="w-5 h-5 fill-current translate-x-0.5 text-gold" />
+      </div>
+
+      <span class="text-white font-serif text-[10px] uppercase tracking-widest font-bold block">
+        GET STARTED
+      </span>
+      <h2 class="text-3xl sm:text-5xl font-serif font-medium leading-tight text-white">
+        Finest Carpenters With the Finest Wood Working.
+      </h2>
+      <p class="text-xs sm:text-sm text-beige-light/85 leading-relaxed font-sans font-light max-w-xl mx-auto">
+        {lang === 'hi'
+          ? 'क्या आप अपने घर के इंटीरियर का नाप एस्टीमेट लेना चाहते हैं? संतोष शर्मा जी स्वयं साइट पर आएंगे।'
+          : 'Schedule a free measurement visit in Patna. We bring wood samples, discuss locking fittings, and finalize direct estimations.'}
+      </p>
+
+      <a
+        href={`tel:${phoneNo}`}
+        class="btn-walnut"
+      >
+        <Phone class="w-4 h-4 shrink-0 text-gold" />
+        <span>Contact Us</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- SECTION 8: PROJECTS LIST SECTION (View More button + 4 vertical cards Screenshot 2026-07-01 203825.png) -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+    <div class="flex items-start justify-between border-b border-hairline pb-8 mb-12 gap-6">
+      <div class="space-y-3 text-left">
+        <span class="text-gold font-serif text-xs font-bold uppercase tracking-widest block">
+          OUR PROJECTS
+        </span>
+        <h2 class="text-2xl sm:text-4xl font-serif font-medium text-walnut leading-tight">
+          Best Quality at the Best Price.
+        </h2>
+      </div>
+      <a
+        href={lang === 'hi' ? '/hi/projects' : '/projects'}
+        class="btn-primary shrink-0"
+      >
+        <span>{lang === 'hi' ? 'सभी प्रोजेक्ट्स' : 'View More'}</span>
+        <ArrowRight class="w-4 h-4" />
+      </a>
+    </div>
+
+    <!-- 4 vertical project cards -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+      {featuredProjects.map((project) => (
+        <div class="bg-white rounded-2xl overflow-hidden border border-hairline shadow-sm hover:shadow-md transition-all duration-300 flex flex-col group cursor-pointer">
+          <div class="aspect-square overflow-hidden relative border-b border-hairline bg-[#FAF9F6]">
+            <img
+              src={project.image}
+              alt={project.title[lang]}
+              class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-103"
+            />
+          </div>
+          <div class="p-5 space-y-1 text-left flex-grow flex flex-col justify-between">
+            <h3 class="text-base font-bold text-walnut font-sans truncate">{project.title[lang]}</h3>
+            <span class="font-mono text-[9px] uppercase tracking-wider text-gold font-semibold block pt-1">
+              Wood Project // {project.category}
+            </span>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- SECTION 9: TESTIMONIALS SLIDER SECTION (Replicating Screenshot 2026-07-01 203841.png) -->
+  <section class="bg-[#151515] text-[#A29B8F] py-24 text-center relative overflow-hidden border-t border-black">
+    <!-- Topography lines decor -->
+    <div class="absolute inset-0 bg-[radial-gradient(var(--color-gold)_0.3px,transparent_0.3px)] [background-size:32px_32px] opacity-10 pointer-events-none"></div>
+
+    <div class="max-w-4xl mx-auto px-4 relative z-10 space-y-8">
+      <span class="text-gold font-serif text-xs font-bold uppercase tracking-widest block">
+        TESTIMONIALS
+      </span>
+      <h2 class="text-3xl sm:text-4xl font-serif font-medium text-white leading-tight">
+        Rich Woodwork, Cheap Price.
+      </h2>
+      <p class="text-xs text-[#A29B8F]/60">
+        {lang === 'hi' ? `पटना में ${STATS.completedProjects.number} से अधिक खुश ग्राहकों की समीक्षाएं` : `Review from ${STATS.completedProjects.number} happy clients in Patna`}
+      </p>
+
+      {testimonials.map((test) => (
+        <div class="space-y-6 pt-4">
+          <!-- Gold Quote mark -->
+          <span class="text-5xl font-serif text-gold block leading-none">”</span>
+          
+          <blockquote class="text-base sm:text-xl font-sans italic text-white/90 leading-relaxed max-w-2xl mx-auto">
+            {test.text}
+          </blockquote>
+
+          <!-- Avatar Image & Name -->
+          <div class="flex flex-col items-center space-y-2.5 pt-4">
+            <img
+              src={test.avatar}
+              alt={test.name}
+              class="w-12 h-12 rounded-full object-cover border border-gold/30 shadow-inner"
+            />
+            <div class="space-y-0.5">
+              <h4 class="text-xs font-bold text-white font-sans">{test.name}</h4>
+              <span class="text-[10px] text-[#A29B8F]/50 block uppercase tracking-wider">{test.role}</span>
+            </div>
+          </div>
+        </div>
+      ))}
+
+      <!-- Slider Dots -->
+      <div class="pt-6 flex items-center justify-center space-x-2">
+        <span class="w-1.5 h-1.5 rounded-full bg-gold"></span>
+        <span class="w-1.5 h-1.5 rounded-full bg-white/20"></span>
+        <span class="w-1.5 h-1.5 rounded-full bg-white/20"></span>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SECTION 10: FAQS SECTION (Left image + right active ocher panel Screenshot 2026-07-01 203855.png) -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24" id="faq">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
+      
+      <!-- Left side: wood table tools image with contact badge -->
+      <div class="lg:col-span-5 relative">
+        <div class="rounded-3xl overflow-hidden shadow-lg border border-hairline aspect-[3/4]">
+          <img
+            src="/images/references/furniture/woodwork-measuring.jpg"
+            alt="Table with wood pieces and rulers"
+            class="w-full h-full object-cover"
+          />
+        </div>
+        
+        <!-- Floating tag on image -->
+        <div class="absolute bottom-6 left-6 bg-white/95 p-4 rounded-xl shadow-lg border border-hairline text-left">
+          <span class="text-[9px] font-mono text-gold uppercase tracking-wider block font-bold">Patna Carpentry Office</span>
+          <span class="text-xs font-bold text-walnut block mt-0.5">{phoneNo}</span>
+        </div>
+      </div>
+
+      <!-- Right side: FAQ Accordions with solid Gold active block -->
+      <div class="lg:col-span-7 space-y-6">
+        <div class="space-y-2 text-left">
+          <span class="text-gold font-serif text-xs font-bold uppercase tracking-widest block">
+            FAQS
+          </span>
+          <h2 class="text-3xl sm:text-4xl font-serif font-medium text-walnut leading-tight">
+            Frequently Asked Questions.
+          </h2>
+        </div>
+
+        <div class="space-y-4 pt-4">
+          {faqs.map((faq, idx) => {
+            const active = idx === 0;
+            return (
+              <div class={`rounded-xl overflow-hidden border border-hairline transition-all duration-300 ${
+                active 
+                  ? 'bg-gold text-white border-gold shadow' 
+                  : 'bg-[#F4EFE6] text-walnut hover:bg-canvas-soft-2/80'
+              }`}>
+                <button
+                  class="faq-trigger w-full flex items-center justify-between p-5 text-left focus:outline-none cursor-pointer"
+                  aria-expanded={active ? "true" : "false"}
+                >
+                  <span class="font-bold text-xs sm:text-sm font-sans">{faq.q}</span>
+                  <ChevronDown class={`w-4 h-4 shrink-0 transition-transform duration-300 faq-icon ${active ? 'rotate-180 text-white' : 'text-wood'}`} />
+                </button>
+                <div class={`faq-content p-5 pt-0 text-xs sm:text-sm leading-relaxed font-sans font-light ${active ? 'block' : 'hidden'}`}>
+                  <p class="border-t border-white/10 dark:border-black/5 pt-3 leading-relaxed">{faq.a}</p>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+</Layout>
+
+<script>
+  function initFaqs() {
+    const triggers = document.querySelectorAll('.faq-trigger');
+    triggers.forEach((trigger) => {
+      trigger.addEventListener('click', () => {
+        const container = trigger.closest('.rounded-xl');
+        const content = trigger.nextElementSibling as HTMLElement;
+        const icon = trigger.querySelector('.faq-icon') as HTMLElement;
+        if (!container || !content) return;
+
+        const expanded = trigger.getAttribute('aria-expanded') === 'true';
+
+        // Close all other panels and reset styling
+        document.querySelectorAll('.faq-trigger').forEach((otherTrigger) => {
+          if (otherTrigger !== trigger) {
+            otherTrigger.setAttribute('aria-expanded', 'false');
+            const otherContainer = otherTrigger.closest('.rounded-xl');
+            const otherContent = otherTrigger.nextElementSibling as HTMLElement;
+            const otherIcon = otherTrigger.querySelector('.faq-icon') as HTMLElement;
+            
+            if (otherContainer) {
+              otherContainer.className = 'rounded-xl overflow-hidden border border-hairline transition-all duration-300 bg-[#F4EFE6] text-walnut hover:bg-canvas-soft-2/80';
+            }
+            if (otherContent) otherContent.classList.add('hidden');
+            if (otherIcon) {
+              otherIcon.classList.remove('rotate-180', 'text-white');
+              otherIcon.classList.add('text-wood');
+            }
+          }
+        });
+
+        // Toggle current panel
+        trigger.setAttribute('aria-expanded', (!expanded).toString());
+        if (!expanded) {
+          // Make active ocher-gold style
+          container.className = 'rounded-xl overflow-hidden border border-gold bg-gold text-white shadow transition-all duration-300';
+          content.classList.remove('hidden');
+          if (icon) {
+            icon.classList.add('rotate-180', 'text-white');
+            icon.classList.remove('text-wood');
+          }
+        } else {
+          // Make inactive gray style
+          container.className = 'rounded-xl overflow-hidden border border-hairline bg-[#F4EFE6] text-walnut transition-all duration-300';
+          content.classList.add('hidden');
+          if (icon) {
+            icon.classList.remove('rotate-180', 'text-white');
+            icon.classList.add('text-wood');
+          }
+        }
+      });
+    });
+  }
+
+  // Load handler
+  initFaqs();
+  document.addEventListener('astro:page-load', initFaqs);
+</script>

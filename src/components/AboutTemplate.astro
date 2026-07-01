@@ -1,0 +1,167 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { useTranslations } from '../data/translations';
+import { Hammer, Award, Compass, Heart, Phone, MessageCircle } from '@lucide/astro';
+import { BUSINESS } from '@/config/business';
+import { CONTACT } from '@/config/contact';
+import { STATS } from '@/config/stats';
+
+interface Props {
+  lang: 'en' | 'hi';
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+const phoneNo = CONTACT.phone;
+const whatsappLink = `https://wa.me/${CONTACT.whatsapp.replace('+', '')}?text=${encodeURIComponent(
+  lang === 'hi'
+    ? `नमस्ते संतोष जी, मैंने आपके बारे में पढ़ा और मुझे कस्टम फर्नीचर बनवाने के लिए आपसे नाप चर्चा करनी है।`
+    : 'Hello Santosh Ji, I read about your work and would like to invite you for a site measurement visit.'
+)}`;
+---
+
+<Layout
+  title={lang === 'hi' ? `हमारे बारे में - ${BUSINESS.owner[lang]}` : `About ${BUSINESS.owner[lang]} | ${BUSINESS.name[lang]}`}
+  description={lang === 'hi'
+    ? `${BUSINESS.name[lang]} के बारे में जानें। ${STATS.experience.number} का कारपेंटर अनुभव, बेहतरीन सागवान लकड़ी का फर्नीचर।`
+    : `Learn about ${BUSINESS.name[lang]}. ${STATS.experience.number} of custom wood crafting, sliding wardrobes, and premium designer doors.`}
+  lang={lang}
+  canonicalPath={lang === 'hi' ? '/hi/about' : '/about'}
+>
+  
+  <!-- Page Header -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 text-center space-y-3">
+    <span class="font-mono eyebrow">07 / Story</span>
+    <h1 class="text-4xl sm:text-5xl font-serif font-medium tracking-tight text-walnut">
+      {lang === 'hi' ? `कारीगरी की कहानी - ${BUSINESS.owner[lang]}.` : 'The Legacy of Craftsmanship.'}
+    </h1>
+    <p class="text-base text-wood max-w-2xl mx-auto font-sans font-light">
+      {lang === 'hi'
+        ? `${STATS.experience.number} से अधिक वर्षों से पटना और बिहार में मजबूत, लक्जरी और भरोसेमंद लकड़ी के फर्नीचर का निर्माण।`
+        : `Crafting luxury, termite-resistant, customized wooden furniture in Patna and surrounding Bihar areas for over ${STATS.experience.number} years.`}
+    </p>
+  </section>
+
+  <!-- Story Section with Side Image -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+      
+      <!-- Image showcase (Presentation slide mockup look) -->
+      <div class="relative order-last lg:order-first">
+        <div class="absolute inset-0 bg-gold/5 rounded-3xl blur-[30px] -z-10"></div>
+        <div class="bg-white rounded-3xl p-5 border border-hairline shadow-xl">
+          <img
+            src="/images/references/furniture/carpenter-assembling-joints.png"
+            alt={`${BUSINESS.owner[lang]} Carpentry Workshop`}
+            class="w-full h-[430px] object-cover rounded-2xl shadow-md"
+          />
+        </div>
+      </div>
+
+      <!-- Text story block -->
+      <div class="space-y-6">
+        <div class="inline-flex items-center space-x-2 border border-hairline px-3 py-1 rounded-md bg-white shadow-sm">
+          <Award class="w-3.5 h-3.5 text-gold" />
+          <span class="font-mono text-[9px] uppercase tracking-widest text-gold font-bold">
+            {lang === 'hi' ? '100% विश्वसनीय कारीगर' : '100% DIRECT TO CUSTOMER'}
+          </span>
+        </div>
+
+        <h2 class="text-3xl font-serif font-medium tracking-tight text-walnut leading-tight">
+          {lang === 'hi' ? `हमारे बारे में - ${BUSINESS.name[lang]}` : `About ${BUSINESS.name[lang]}`}
+        </h2>
+
+        <div class="space-y-4 text-sm sm:text-base text-wood leading-relaxed font-sans font-light">
+          <p>
+            {lang === 'hi'
+              ? `${BUSINESS.name[lang]} की शुरुआत मेरे पिता ${BUSINESS.owner[lang]} ने की थी, जिनका मानना है कि एक घर का फर्नीचर सिर्फ लकड़ी का ढांचा नहीं, बल्कि पीढ़ियों का साथी होता है। ${STATS.experience.number} से अधिक वर्षों से उन्होंने पटना के बोरिंग रोड, कंकड़बाग, बेली रोड और आसपास के क्षेत्रों में कई घरों और बंगलों को सजाया है।`
+              : `${BUSINESS.name[lang]} was started by my father, ${BUSINESS.owner[lang]}, with a single philosophy: furniture is not just structural wood, but a generational companion. For over ${STATS.experience.number} years, he has hand-crafted luxury wardrobes, sliding closets, main entry teak doors, and customized beds for homes and luxury bungalows across Patna.`}
+          </p>
+          <p>
+            {lang === 'hi'
+              ? `हमारे काम करने का तरीका बेहद अलग और पारदर्शी है। हमारा कोई शोरूम या बिचौलिया नहीं है, जिससे आपकी शोरूम मार्जिन की बचत होती है। आप सीधे हमें कॉल या व्हाट्सएप करते हैं, जिसके बाद ${BUSINESS.owner[lang]} स्वयं आपके घर आकर सटीक नाप लेते हैं और लकड़ी, लैमिनेट, तथा डिज़ाइनों पर विस्तार से चर्चा करते हैं।`
+              : `Our business model is direct, transparent, and built on trust. We do not maintain expensive retail storefronts, saving you from heavy middle-man markups. Customers call or WhatsApp us, and my father personally visits your site to inspect the space, take precise measurements, and align on material selection (Teak wood, BWR ply, premium hardware).`}
+          </p>
+        </div>
+
+        <!-- Key Values lists -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-6 border-t border-hairline font-mono text-xs text-wood">
+          <div class="flex items-center space-x-2.5">
+            <Compass class="w-4 h-4 text-gold" />
+            <span>{lang === 'hi' ? 'सटीक नाप और अलाइनमेंट' : 'Precise Space Alignment'}</span>
+          </div>
+          <div class="flex items-center space-x-2.5">
+            <Hammer class="w-4 h-4 text-gold" />
+            <span>{lang === 'hi' ? 'सागवान लकड़ी की नक्काशी' : 'Teak Wood Carvings'}</span>
+          </div>
+          <div class="flex items-center space-x-2.5">
+            <Heart class="w-4 h-4 text-gold" />
+            <span>{lang === 'hi' ? '100% स्थानीय विश्वास' : '100% Local Reliability'}</span>
+          </div>
+          <div class="flex items-center space-x-2.5">
+            <Award class="w-4 h-4 text-gold" />
+            <span>{lang === 'hi' ? 'बिना किसी छिपे शुल्क के कोटेशन' : 'Transparent Direct Pricing'}</span>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Trust Stats banner -->
+  <section class="bg-walnut text-[#FCFAF7] border-y border-hairline py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-12 text-center">
+        
+        <div class="space-y-2">
+          <span class="text-4xl sm:text-5xl font-serif font-black text-gold">{STATS.experience.number}</span>
+          <p class="font-mono text-[9px] uppercase tracking-widest text-[#FCFAF7]/60">
+            {t('about.experience')}
+          </p>
+        </div>
+
+        <div class="space-y-2">
+          <span class="text-4xl sm:text-5xl font-serif font-black text-gold">{STATS.completedProjects.number}</span>
+          <p class="font-mono text-[9px] uppercase tracking-widest text-[#FCFAF7]/60">
+            {t('about.completed')}
+          </p>
+        </div>
+
+        <div class="space-y-2">
+          <span class="text-4xl sm:text-5xl font-serif font-black text-gold">{STATS.satisfactionRate.number}</span>
+          <p class="font-mono text-[9px] uppercase tracking-widest text-[#FCFAF7]/60">
+            {t('about.satisfaction')}
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA section -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+    <div class="bg-white border border-hairline rounded-3xl p-12 text-center space-y-6 max-w-4xl mx-auto shadow-sm">
+      <h2 class="text-2xl sm:text-3xl font-serif font-bold text-walnut">
+        {lang === 'hi' ? 'संतोष जी को अपने यहाँ बुलाएं' : 'Book a Site visit with Santosh Sharma'}
+      </h2>
+      <p class="text-sm sm:text-base text-wood max-w-2xl mx-auto font-sans font-light">
+        {lang === 'hi'
+          ? 'क्या आपको लकड़ी के काम का एस्टीमेट लेना है? हमें कॉल या व्हाट्सएप करें, संतोष जी स्वयं आपके घर आकर सटीक जानकारी देंगे।'
+          : 'Ready to build custom furniture? Contact us today to schedule a measurement visit at your site in Patna. We charge nothing for measurements and quotes.'}
+      </p>
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-3 pt-2">
+        <a href={`tel:${phoneNo}`} class="btn-primary w-full sm:w-auto">
+          <Phone class="w-4 h-4 text-white" />
+          <span>{lang === 'hi' ? 'अभी कॉल करें' : 'Call Now'}</span>
+        </a>
+        <a href={whatsappLink} target="_blank" rel="noopener noreferrer" class="btn-secondary w-full sm:w-auto">
+          <MessageCircle class="w-4 h-4 text-gold" />
+          <span>{lang === 'hi' ? 'व्हाट्सएप संपर्क' : 'WhatsApp Us'}</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+</Layout>

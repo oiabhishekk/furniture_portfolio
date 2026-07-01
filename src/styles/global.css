@@ -1,0 +1,215 @@
+@import "tailwindcss";
+
+@theme {
+  --color-canvas: #ffffff;
+  --color-canvas-soft: #FCFAF7; /* Clean off-white warm reference background */
+  --color-canvas-soft-2: #F4EFE6; /* Slightly darker warm ivory for cards */
+  
+  --color-walnut: #151515; /* Primary Near-Black text */
+  --color-wood: #6E685E; /* Secondary Muted text */
+  --color-gold: #C18B45; /* Accent Ocher Gold */
+  --color-gold-hover: #A67536; /* Darker Ocher for hover state */
+  
+  --color-hairline: #E6DFD3; /* Thin warm border lines from screenshots */
+  --color-hairline-strong: #C4BAA9; /* Stronger borders */
+  
+  --font-serif: 'Space Grotesk', system-ui, sans-serif; /* Space Grotesk for Display */
+  --font-sans: 'Plus Jakarta Sans', system-ui, sans-serif; /* Plus Jakarta Sans for Body */
+  --font-mono: 'JetBrains Mono', monospace;
+  --font-hindi: 'Noto Sans Devanagari', system-ui, sans-serif;
+}
+
+/* Custom CSS variables for theme-dependent utility */
+:root {
+  --font-primary: 'Plus Jakarta Sans', system-ui, sans-serif;
+  --font-display: 'Space Grotesk', system-ui, sans-serif;
+  --bg-primary: #FCFAF7;
+  --bg-card: #ffffff;
+  --border-card: #E6DFD3;
+  --text-primary: #151515; /* Walnut Near-Black */
+  --text-secondary: #6E685E; /* Muted Wood Gray */
+  --text-mute: #A29B8F;
+  --color-accent-gold: #C18B45;
+  --shadow-sm: 0px 2px 8px rgba(30, 22, 17, 0.03), 0px 4px 12px rgba(30, 22, 17, 0.02);
+  --shadow-md: 0px 4px 10px rgba(30, 22, 17, 0.05), 0px 12px 24px rgba(30, 22, 17, 0.04);
+}
+
+:root[lang="hi"] {
+  --font-primary: 'Noto Sans Devanagari', system-ui, sans-serif;
+}
+
+/* Base Styles */
+html {
+  scroll-behavior: smooth;
+  font-family: var(--font-primary);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+/* Typography Overrides */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  letter-spacing: -0.02em;
+}
+
+/* Section Title Stylings (Space Grotesk Sans) */
+.section-title {
+  font-family: var(--font-display);
+  font-size: 2.25rem; /* 36px */
+  font-weight: 500;
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+}
+
+@media (min-width: 768px) {
+  .section-title {
+    font-size: 3rem; /* 48px */
+  }
+}
+
+/* Eyebrows using Space Grotesk / Mono */
+.eyebrow {
+  font-family: var(--font-display);
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--color-accent-gold);
+}
+
+/* Card layout outlines */
+.card-border {
+  border: 1px solid var(--border-card);
+  box-shadow: var(--shadow-sm);
+}
+
+/* REDESIGNED BUTTON SYSTEM (Solid Ocher Pill Buttons) */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background-color: var(--color-accent-gold);
+  color: #ffffff;
+  font-family: var(--font-primary);
+  font-size: 13px;
+  font-weight: 600;
+  height: 48px;
+  padding: 0 28px;
+  border-radius: 9999px; /* Rounded pill */
+  box-shadow: var(--shadow-sm);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  border: 1px solid transparent;
+  cursor: pointer;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  background-color: #A67536;
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background-color: var(--bg-card);
+  color: var(--text-primary);
+  font-family: var(--font-primary);
+  font-size: 13px;
+  font-weight: 600;
+  height: 48px;
+  padding: 0 28px;
+  border-radius: 9999px;
+  border: 1px solid var(--border-card);
+  box-shadow: var(--shadow-sm);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+}
+
+.btn-secondary:hover {
+  border-color: var(--text-primary);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  background-color: var(--text-primary);
+  color: #ffffff;
+}
+
+.btn-walnut {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background-color: var(--text-primary);
+  color: #ffffff;
+  font-family: var(--font-primary);
+  font-size: 13px;
+  font-weight: 600;
+  height: 48px;
+  padding: 0 28px;
+  border-radius: 9999px;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  border: 1px solid transparent;
+  cursor: pointer;
+}
+
+.btn-walnut:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  opacity: 0.95;
+}
+
+/* Small nav-scale buttons (6px rounded targets) */
+.btn-nav-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  background-color: var(--color-accent-gold);
+  color: #ffffff;
+  font-family: var(--font-primary);
+  font-size: 11px;
+  font-weight: 600;
+  height: 32px;
+  padding: 0 14px;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+  border: 1px solid transparent;
+  cursor: pointer;
+}
+
+.btn-nav-primary:hover {
+  background-color: #A67536;
+  transform: translateY(-1px);
+}
+
+/* Navigation tabs */
+.nav-pill {
+  font-size: 12px;
+  font-weight: 500;
+  border-radius: 9999px;
+  padding: 6px 14px;
+  color: var(--text-secondary);
+  transition: all 0.2s ease;
+}
+.nav-pill:hover {
+  color: var(--text-primary);
+  background-color: var(--border-card);
+}
+
+/* Custom premium visual partitions */
+.premium-divider {
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--border-card) 20%, var(--border-card) 80%, transparent);
+}
+
+/* Hide scrollbar for gallery and before-after sliders */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}

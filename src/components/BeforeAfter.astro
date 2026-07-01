@@ -1,0 +1,145 @@
+---
+interface Props {
+  beforeImage: string;
+  afterImage: string;
+  beforeLabel?: string;
+  afterLabel?: string;
+  title?: string;
+  description?: string;
+}
+
+const {
+  beforeImage,
+  afterImage,
+  beforeLabel = 'Before (Old Wood)',
+  afterLabel = 'After (PU Polished Teak)',
+  title,
+  description,
+} = Astro.props;
+---
+
+<div class="glass rounded-3xl p-6 md:p-8 max-w-4xl mx-auto shadow-xl">
+  {title && (
+    <div class="mb-6 text-center">
+      <h3 class="text-xl font-bold tracking-tight">{title}</h3>
+      {description && <p class="text-sm text-wood-dark/70 dark:text-beige-light/70 mt-1.5">{description}</p>}
+    </div>
+  )}
+
+  <div class="relative w-full aspect-[4/3] md:aspect-[16/10] overflow-hidden rounded-2xl select-none group border border-secondary/15 dark:border-gold/15">
+    
+    <!-- After (Polished) Image - Base layer -->
+    <img
+      src={afterImage}
+      alt="After restoration work"
+      class="absolute inset-0 w-full h-full object-cover pointer-events-none"
+    />
+    <div class="absolute bottom-4 right-4 bg-wood-dark/80 text-gold text-xs font-bold px-3 py-1.5 rounded-lg backdrop-blur-sm z-10 select-none">
+      {afterLabel}
+    </div>
+
+    <!-- Before (Unpolished) Image - Overlay clip layer -->
+    <div class="absolute inset-0 before-image-container pointer-events-none w-1/2 overflow-hidden border-r-2 border-gold z-20">
+      <img
+        src={beforeImage}
+        alt="Before restoration work"
+        class="absolute inset-0 w-full h-full object-cover pointer-events-none max-w-none"
+        style="width: 100%; height: 100%;"
+      />
+      <div class="absolute bottom-4 left-4 bg-wood-dark/80 text-white text-xs font-bold px-3 py-1.5 rounded-lg backdrop-blur-sm select-none">
+        {beforeLabel}
+      </div>
+    </div>
+
+    <!-- Slider Input overlay -->
+    <input
+      type="range"
+      min="0"
+      max="100"
+      value="50"
+      class="absolute inset-0 w-full h-full opacity-0 cursor-ew-resize z-30 slider-control"
+      aria-label="Before and after slider handle"
+    />
+
+    <!-- Visual Slider bar & knob -->
+    <div class="absolute top-0 bottom-0 left-1/2 w-1 -ml-[2px] bg-gold pointer-events-none z-20 slider-bar transition-all">
+      <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-gold hover:bg-amber-400 text-wood-deep flex items-center justify-center shadow-2xl pointer-events-none transition-colors border-2 border-white select-none">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" class="w-4 h-4">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 15L12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9" class="rotate-90 origin-center" />
+        </svg>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  function initBeforeAfterSliders() {
+    const containers = document.querySelectorAll('.slider-control');
+    containers.forEach((sliderInput) => {
+      const container = sliderInput.closest('.relative') as HTMLElement;
+      if (!container) return;
+
+      const beforeImgContainer = container.querySelector('.before-image-container') as HTMLElement;
+      const img = beforeImgContainer?.querySelector('img') as HTMLElement;
+      const sliderBar = container.querySelector('.slider-bar') as HTMLElement;
+
+      const updateSlider = (value: string) => {
+        const percentage = `${value}%`;
+        
+        // Update width of before container
+        if (beforeImgContainer) {
+          beforeImgContainer.style.width = percentage;
+        }
+        
+        // Position slider line
+        if (sliderBar) {
+          sliderBar.style.left = percentage;
+        }
+      };
+
+      // Set initial sizing of image inside container to match parent size dynamically
+      const handleResize = () => {
+        if (img && container) {
+          img.style.width = `${container.clientWidth}px`;
+          img.style.height = `${container.clientHeight}px`;
+        }
+      };
+
+      // Add event listeners
+      sliderInput.addEventListener('input', (e) => {
+        const target = e.target as HTMLInputElement;
+        updateSlider(target.value);
+      });
+
+      window.addEventListener('resize', handleResize);
+      
+      // Initial setups
+      handleResize();
+      updateSlider('50');
+      
+      // Let images settle
+      setTimeout(handleResize, 100);
+    });
+  }
+
+  // Run on page loads
+  initBeforeAfterSliders();
+  document.addEventListener('astro:page-load', initBeforeAfterSliders);
+</script>
+
+<style>
+  /* Custom thumb styles to make the slider full size */
+  .slider-control::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 40px;
+    height: 100%;
+    cursor: ew-resize;
+  }
+  .slider-control::-moz-range-thumb {
+    width: 40px;
+    height: 100%;
+    cursor: ew-resize;
+  }
+</style>

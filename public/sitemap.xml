@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <!-- English Homepage -->
+  <url>
+    <loc>https://patnafurniture.in</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://patnafurniture.in" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://patnafurniture.in/hi" />
+    <priority>1.0</priority>
+  </url>
+  <!-- Hindi Homepage -->
+  <url>
+    <loc>https://patnafurniture.in/hi</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://patnafurniture.in" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://patnafurniture.in/hi" />
+    <priority>1.0</priority>
+  </url>
+
+  <!-- About Pages -->
+  <url>
+    <loc>https://patnafurniture.in/about</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://patnafurniture.in/about" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://patnafurniture.in/hi/about" />
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://patnafurniture.in/hi/about</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://patnafurniture.in/about" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://patnafurniture.in/hi/about" />
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Projects Pages -->
+  <url>
+    <loc>https://patnafurniture.in/projects</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://patnafurniture.in/projects" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://patnafurniture.in/hi/projects" />
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://patnafurniture.in/hi/projects</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://patnafurniture.in/projects" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://patnafurniture.in/hi/projects" />
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Gallery Pages -->
+  <url>
+    <loc>https://patnafurniture.in/gallery</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://patnafurniture.in/gallery" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://patnafurniture.in/hi/gallery" />
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://patnafurniture.in/hi/gallery</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://patnafurniture.in/gallery" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://patnafurniture.in/hi/gallery" />
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Contact Pages -->
+  <url>
+    <loc>https://patnafurniture.in/contact</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://patnafurniture.in/contact" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://patnafurniture.in/hi/contact" />
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://patnafurniture.in/hi/contact</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://patnafurniture.in/contact" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://patnafurniture.in/hi/contact" />
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Services: Doors -->
+  <url>
+    <loc>https://patnafurniture.in/services/doors</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://patnafurniture.in/services/doors" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://patnafurniture.in/hi/services/doors" />
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://patnafurniture.in/hi/services/doors</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://patnafurniture.in/services/doors" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://patnafurniture.in/hi/services/doors" />
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Services: Wardrobes -->
+  <url>
+    <loc>https://patnafurniture.in/services/wardrobes</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://patnafurniture.in/services/wardrobes" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://patnafurniture.in/hi/services/wardrobes" />
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://patnafurniture.in/hi/services/wardrobes</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://patnafurniture.in/services/wardrobes" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://patnafurniture.in/hi/services/wardrobes" />
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Services: Beds -->
+  <url>
+    <loc>https://patnafurniture.in/services/beds</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://patnafurniture.in/services/beds" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://patnafurniture.in/hi/services/beds" />
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://patnafurniture.in/hi/services/beds</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://patnafurniture.in/services/beds" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://patnafurniture.in/hi/services/beds" />
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Services: Cabinets -->
+  <url>
+    <loc>https://patnafurniture.in/services/cabinets</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://patnafurniture.in/services/cabinets" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://patnafurniture.in/hi/services/cabinets" />
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://patnafurniture.in/hi/services/cabinets</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://patnafurniture.in/services/cabinets" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://patnafurniture.in/hi/services/cabinets" />
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Services: Custom Furniture -->
+  <url>
+    <loc>https://patnafurniture.in/services/furniture</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://patnafurniture.in/services/furniture" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://patnafurniture.in/hi/services/furniture" />
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://patnafurniture.in/hi/services/furniture</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://patnafurniture.in/services/furniture" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://patnafurniture.in/hi/services/furniture" />
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Services: Concrete Cornice -->
+  <url>
+    <loc>https://patnafurniture.in/services/concrete-cornice</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://patnafurniture.in/services/concrete-cornice" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://patnafurniture.in/hi/services/concrete-cornice" />
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://patnafurniture.in/hi/services/concrete-cornice</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://patnafurniture.in/services/concrete-cornice" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://patnafurniture.in/hi/services/concrete-cornice" />
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Services: Wooden Interiors -->
+  <url>
+    <loc>https://patnafurniture.in/services/interiors</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://patnafurniture.in/services/interiors" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://patnafurniture.in/hi/services/interiors" />
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://patnafurniture.in/hi/services/interiors</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://patnafurniture.in/services/interiors" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://patnafurniture.in/hi/services/interiors" />
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Services: Carpentry Renovation -->
+  <url>
+    <loc>https://patnafurniture.in/services/carpentry-renovation</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://patnafurniture.in/services/carpentry-renovation" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://patnafurniture.in/hi/services/carpentry-renovation" />
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://patnafurniture.in/hi/services/carpentry-renovation</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://patnafurniture.in/services/carpentry-renovation" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://patnafurniture.in/hi/services/carpentry-renovation" />
+    <priority>0.9</priority>
+  </url>
+
+</urlset>

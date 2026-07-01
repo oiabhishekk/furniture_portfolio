@@ -1,0 +1,260 @@
+---
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import { useTranslations } from '../data/translations';
+import { Phone, MessageCircle, Star, MapPin, Clock } from '@lucide/astro';
+import { BUSINESS } from '@/config/business';
+import { CONTACT } from '@/config/contact';
+import { SOCIAL } from '@/config/social';
+import { SEO } from '@/config/seo';
+import { THEME } from '@/config/theme';
+import { FOOTER_EXPLORE, FOOTER_SUPPORT } from '@/config/navigation';
+
+interface Props {
+  title: string;
+  description: string;
+  lang: 'en' | 'hi';
+  canonicalPath?: string;
+  schema?: Record<string, any>;
+}
+
+const { title, description, lang, canonicalPath = '', schema } = Astro.props;
+const t = useTranslations(lang);
+
+const siteUrl = SEO.siteUrl;
+const fullCanonicalUrl = `${siteUrl}${canonicalPath.replace(/\/$/, '')}`;
+
+const phoneNo = CONTACT.phone;
+const whatsappLink = `https://wa.me/${CONTACT.whatsapp.replace('+', '')}?text=${encodeURIComponent(
+  lang === 'hi'
+    ? 'नमस्ते संतोष जी, मुझे घर के लिए लकड़ी का कस्टम काम (फर्नीचर/दरवाजा) करवाना है।'
+    : 'Hello Santosh Ji, I am looking for custom woodwork/furniture services in Patna.'
+)}`;
+
+const defaultSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'LocalBusiness',
+  'name': BUSINESS.name[lang],
+  'image': `${siteUrl}${SEO.openGraph.image}`,
+  'telephone': phoneNo,
+  'priceRange': '$$',
+  'address': {
+    '@type': 'PostalAddress',
+    'streetAddress': CONTACT.address[lang].split(',').slice(0, -2).join(',').trim(),
+    'addressLocality': 'Patna',
+    'addressRegion': 'Bihar',
+    'postalCode': '800020',
+    'addressCountry': 'IN'
+  },
+  'geo': {
+    '@type': 'GeoCoordinates',
+    'latitude': 25.5941,
+    'longitude': 85.1376
+  },
+  'url': siteUrl,
+  'openingHoursSpecification': {
+    '@type': 'OpeningHoursSpecification',
+    'dayOfWeek': [
+      'Monday',
+      'Tuesday',
+      'Wednesday',
+      'Thursday',
+      'Friday',
+      'Saturday',
+      'Sunday'
+    ],
+    'opens': '08:00',
+    'closes': '21:00'
+  }
+};
+
+const finalSchema = schema || defaultSchema;
+
+const localizedNav = (path: string) => {
+  if (lang === 'hi') {
+    return path === '/' ? '/hi' : `/hi${path}`;
+  }
+  return path;
+};
+---
+
+<!doctype html>
+<html lang={lang} class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href={BUSINESS.favicon} />
+    <meta name="generator" content={Astro.generator} />
+
+    <!-- SEO Meta Tags -->
+    <title>{title} | {BUSINESS.name[lang]}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={fullCanonicalUrl} />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content={SEO.openGraph.type} />
+    <meta property="og:url" content={fullCanonicalUrl} />
+    <meta property="og:title" content={`${title} | ${BUSINESS.name[lang]}`} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={`${siteUrl}${SEO.openGraph.image}`} />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content={SEO.twitter.card} />
+    <meta property="twitter:url" content={fullCanonicalUrl} />
+    <meta property="twitter:title" content={`${title} | ${BUSINESS.name[lang]}`} />
+    <meta property="twitter:description" content={description} />
+    <meta property="twitter:image" content={`${siteUrl}${SEO.twitter.image}`} />
+
+    <!-- Google Font preconnects & imports (Space Grotesk + Plus Jakarta Sans) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Local SEO Targeting Patna -->
+    <meta name="geo.region" content="IN-BR" />
+    <meta name="geo.placename" content="Patna" />
+    <meta name="geo.position" content="25.5941;85.1376" />
+    <meta name="ICBM" content="25.5941, 85.1376" />
+
+    <!-- Schema.org Structured Data -->
+    <script type="application/ld+json" set:html={JSON.stringify(finalSchema)} />
+  </head>
+  <body class="bg-canvas-soft text-walnut antialiased min-h-screen flex flex-col">
+    
+    <!-- Header Navigation -->
+    <Header lang={lang} currentPath={Astro.url.pathname} />
+
+    <!-- Main Content Area -->
+    <main class="flex-grow pt-16 pb-24 sm:pb-16">
+      <slot />
+    </main>
+
+    <!-- PREMIUM BLACK FOOTER (Replicating Screenshot 2026-07-01 203935.png) -->
+    <footer class="bg-[#151515] text-[#A29B8F] pt-20 pb-10 font-sans border-t border-black relative overflow-hidden">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 space-y-16">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 items-start">
+          
+          <!-- Column 1: Description & Socials (Col Span 4) -->
+          <div class="lg:col-span-4 space-y-6">
+            <h3 class="text-xl font-serif font-bold text-white tracking-tight">
+              {BUSINESS.name[lang]}
+            </h3>
+            <p class="text-sm leading-relaxed font-light text-[#A29B8F]/80">
+              {t('footer.description')}
+            </p>
+            
+            <!-- Social Icons (Gold / Gray rounded circles) -->
+            <div class="flex items-center space-x-3.5">
+              <a href={SOCIAL.facebook} class="w-9 h-9 rounded-full bg-white/5 hover:bg-gold/20 flex items-center justify-center text-[#A29B8F] hover:text-gold transition-all" aria-label="Facebook">
+                <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M9 8H7v3h2v9h4v-9h3.6l.4-3H13V6c0-.5.5-1 1-1h2V1h-3c-3 0-5 2-5 5v2z"/></svg>
+              </a>
+              <a href={SOCIAL.twitter} class="w-9 h-9 rounded-full bg-white/5 hover:bg-gold/20 flex items-center justify-center text-[#A29B8F] hover:text-gold transition-all" aria-label="Twitter">
+                <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/></svg>
+              </a>
+              <a href={SOCIAL.youtube} class="w-9 h-9 rounded-full bg-white/5 hover:bg-gold/20 flex items-center justify-center text-[#A29B8F] hover:text-gold transition-all" aria-label="Youtube">
+                <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M23.498 6.163a3.003 3.003 0 00-2.11-2.11C19.517 3.545 12 3.545 12 3.545s-7.517 0-9.388.508a3.003 3.003 0 00-2.11 2.11C0 8.033 0 12 0 12s0 3.967.502 5.837a3.003 3.003 0 002.11 2.11c1.871.508 9.388.508 9.388.508s7.517 0 9.388-.508a3.003 3.003 0 002.11-2.11C24 15.967 24 12 24 12s0-3.967-.502-5.837zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+              </a>
+              <a href={SOCIAL.linkedin} class="w-9 h-9 rounded-full bg-white/5 hover:bg-gold/20 flex items-center justify-center text-[#A29B8F] hover:text-gold transition-all" aria-label="LinkedIn">
+                <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+              </a>
+            </div>
+          </div>
+
+          <!-- Column 2: Contact Us & Address (Col Span 4) -->
+          <div class="lg:col-span-4 space-y-6">
+            <div class="space-y-2">
+              <h4 class="text-sm font-bold text-white tracking-wider uppercase font-serif">Contact Us</h4>
+              <p class="text-sm font-semibold text-white">
+                <a href={`tel:${phoneNo}`} class="hover:text-gold transition-colors">{phoneNo}</a>
+              </p>
+              <p class="text-xs font-light">{CONTACT.email}</p>
+            </div>
+            
+            <div class="space-y-2">
+              <h4 class="text-sm font-bold text-white tracking-wider uppercase font-serif">Address</h4>
+              <p class="text-xs font-light leading-relaxed">
+                {CONTACT.address[lang]}
+              </p>
+              <p class="text-[10px] font-mono text-gold font-semibold uppercase">{CONTACT.workingHours[lang]}</p>
+            </div>
+          </div>
+
+          <!-- Column 3: Explore Navigation (Col Span 2) -->
+          <div class="lg:col-span-2 space-y-4">
+            <h4 class="text-sm font-bold text-white tracking-wider uppercase font-serif">Explore</h4>
+            <ul class="space-y-2.5 text-xs font-light">
+              {FOOTER_EXPLORE.map((item) => (
+                <li><a href={localizedNav(item.path)} class="hover:text-white transition-colors">{item.label[lang]}</a></li>
+              ))}
+            </ul>
+          </div>
+
+          <!-- Column 4: Support Quick-links (Col Span 2) -->
+          <div class="lg:col-span-2 space-y-4">
+            <h4 class="text-sm font-bold text-white tracking-wider uppercase font-serif">Support</h4>
+            <ul class="space-y-2.5 text-xs font-light">
+              {FOOTER_SUPPORT.map((item) => (
+                <li><a href={item.path.startsWith('/') ? localizedNav(item.path) : item.path} class="hover:text-white transition-colors">{item.label[lang]}</a></li>
+              ))}
+            </ul>
+          </div>
+
+        </div>
+
+        <!-- Horizontal copyright row (Replicating exact text alignments) -->
+        <div class="pt-8 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between text-xs text-[#A29B8F]/50 gap-4">
+          <p>Copyright &copy; {new Date().getFullYear()} - Developed by {BUSINESS.owner[lang]} team.</p>
+          <div class="flex items-center space-x-4">
+            <a href="#" class="hover:text-white transition-colors">Privacy Policy</a>
+            <span>|</span>
+            <a href="#" class="hover:text-white transition-colors">Terms & Services</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- STICKY FLOATING MOBILE ACTIONS DOCK -->
+    <div class="fixed bottom-4 left-4 right-4 z-50 bg-[#ffffff]/95 border border-hairline p-2 rounded-2xl flex items-center justify-between sm:hidden gap-3 shadow-xl backdrop-blur-md">
+      <a
+        href={`tel:${phoneNo}`}
+        class="flex-1 flex items-center justify-center gap-1.5 bg-walnut text-[#FCFAF7] font-semibold py-3 px-4 rounded-xl shadow-sm text-xs transition-transform active:scale-95"
+      >
+        <Phone class="w-3.5 h-3.5 text-gold" />
+        <span>{t('hero.cta.call')}</span>
+      </a>
+      <a
+        href={whatsappLink}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="flex-1 flex items-center justify-center gap-1.5 bg-emerald-600 text-white font-semibold py-3 px-4 rounded-xl shadow-sm text-xs transition-transform active:scale-95"
+      >
+        <MessageCircle class="w-3.5 h-3.5" />
+        <span>{t('hero.cta.whatsapp')}</span>
+      </a>
+    </div>
+
+    <!-- Desktop Floating Actions (Aligned with gold ocher theme) -->
+    <div class="hidden sm:flex flex-col fixed bottom-6 right-6 z-50 space-y-3">
+      <a
+        href={`tel:${phoneNo}`}
+        class="flex items-center justify-center w-12 h-12 bg-walnut text-[#FCFAF7] border border-gold/20 rounded-full shadow-lg hover:scale-105 transition-transform group"
+        aria-label="Call Now"
+      >
+        <Phone class="w-5 h-5 group-hover:animate-pulse text-gold" />
+      </a>
+      <a
+        href={whatsappLink}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="flex items-center justify-center w-12 h-12 bg-emerald-600 text-white rounded-full shadow-lg hover:scale-105 transition-transform"
+        aria-label="WhatsApp Us"
+      >
+        <MessageCircle class="w-5 h-5" />
+      </a>
+    </div>
+
+  </body>
+</html>

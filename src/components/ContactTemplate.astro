@@ -1,0 +1,244 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { useTranslations } from '../data/translations';
+import { Phone, MessageCircle, MapPin, Mail, Send, HelpCircle } from '@lucide/astro';
+import { BUSINESS } from '@/config/business';
+import { CONTACT } from '@/config/contact';
+
+interface Props {
+  lang: 'en' | 'hi';
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+const phoneNo = CONTACT.phone;
+---
+
+<Layout
+  title={lang === 'hi' ? `सम्पर्क करें - ${BUSINESS.owner[lang]}` : `Contact Us | ${BUSINESS.name[lang]}`}
+  description={lang === 'hi'
+    ? `${BUSINESS.name[lang]} से संपर्क करें। हमें सीधे कॉल या व्हाट्सएप करें और फ्री नाप और एस्टीमेट पाएं।`
+    : `Get in touch with ${BUSINESS.name[lang]} in Patna. Call or WhatsApp us to get a free site measurement and price quotation.`}
+  lang={lang}
+  canonicalPath={lang === 'hi' ? '/hi/contact' : '/contact'}
+>
+  
+  <!-- Page Header -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 text-center space-y-3">
+    <span class="font-mono eyebrow">06 / Contact</span>
+    <h1 class="text-4xl sm:text-5xl font-serif font-medium tracking-tight text-walnut">
+      {t('nav.contact')}.
+    </h1>
+    <p class="text-base text-wood max-w-2xl mx-auto font-sans font-light">
+      {lang === 'hi'
+        ? 'कस्टम अलमारी, दरवाजे और लकड़ी के काम के लिए कभी भी संपर्क करें। हम तुरंत जवाब देते हैं।'
+        : 'Reach out to discuss custom beds, sliding wardrobes, wooden partitions, or concrete exterior designs anywhere in Patna.'}
+    </p>
+  </section>
+
+  <!-- Contact Form & Info Grid -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-24">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+      
+      <!-- Column 1: Info Cards -->
+      <div class="space-y-8">
+        <h2 class="text-2xl font-serif font-bold tracking-tight text-walnut">
+          {t('contact.info.title')}.
+        </h2>
+        <p class="text-sm sm:text-base text-wood leading-relaxed font-sans font-light">
+          {t('contact.info.subtitle')}
+        </p>
+
+        <!-- Dynamic Card Links -->
+        <div class="grid grid-cols-1 gap-6">
+          <!-- Call Card -->
+          <a
+            href={`tel:${phoneNo}`}
+            class="bg-white p-6 rounded-2xl flex items-center space-x-5 border border-hairline hover:border-gold/45 transition-all shadow-sm group cursor-pointer"
+          >
+            <div class="w-12 h-12 rounded-xl bg-gold/10 text-gold flex items-center justify-center shrink-0">
+              <Phone class="w-5 h-5" />
+            </div>
+            <div>
+              <h4 class="font-mono text-[9px] uppercase tracking-wider text-gold font-bold">Call Directly</h4>
+              <p class="text-lg font-bold text-walnut mt-0.5">{phoneNo}</p>
+              <span class="text-xs text-wood font-sans">Available 8 AM to 9 PM daily</span>
+            </div>
+          </a>
+
+          <!-- WhatsApp Card -->
+          <a
+            href={`https://wa.me/${CONTACT.whatsapp.replace('+', '')}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="bg-white p-6 rounded-2xl flex items-center space-x-5 border border-hairline hover:border-emerald-600/40 transition-all shadow-sm group cursor-pointer"
+          >
+            <div class="w-12 h-12 rounded-xl bg-emerald-600/10 text-emerald-600 flex items-center justify-center shrink-0">
+              <MessageCircle class="w-5 h-5" />
+            </div>
+            <div>
+              <h4 class="font-mono text-[9px] uppercase tracking-wider text-emerald-600 font-bold">Send WhatsApp Message</h4>
+              <p class="text-lg font-bold text-walnut mt-0.5">Start Instant Chat</p>
+              <span class="text-xs text-wood font-sans">Response within 5 minutes</span>
+            </div>
+          </a>
+
+          <!-- Location Card -->
+          <div class="bg-white p-6 rounded-2xl flex items-start space-x-5 border border-hairline shadow-sm">
+            <div class="w-12 h-12 rounded-xl bg-gold/10 text-gold flex items-center justify-center shrink-0 mt-0.5">
+              <MapPin class="w-5 h-5" />
+            </div>
+            <div>
+              <h4 class="font-mono text-[9px] uppercase tracking-wider text-gold font-bold">Office & Workshop</h4>
+              <p class="text-sm font-bold text-walnut mt-1 font-sans">
+                {CONTACT.address[lang]}
+              </p>
+              <span class="text-xs text-wood block mt-1 font-sans">
+                {t('seo.local_focus')}
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Extra Trust badge box -->
+        <div class="bg-white rounded-3xl p-6 md:p-8 border border-hairline space-y-3 shadow-sm">
+          <h4 class="font-mono text-[9px] uppercase tracking-widest text-gold font-bold flex items-center gap-2">
+            <HelpCircle class="w-4 h-4" />
+            <span>100% Free Measurements Visit //</span>
+          </h4>
+          <p class="text-xs leading-relaxed text-wood font-sans font-light">
+            You do not have to pay anything for site measurements, design selection sessions, or quotations. My father Santosh Sharma handles the layout discussion personally.
+          </p>
+        </div>
+
+      </div>
+
+      <!-- Column 2: WhatsApp Form -->
+      <div class="bg-white rounded-3xl p-8 border border-hairline shadow-sm">
+        <h2 class="text-xl font-serif font-bold text-walnut mb-6">
+          {t('contact.form.title')}.
+        </h2>
+
+        <form id="whatsapp-inquiry-form" class="space-y-5">
+          <!-- Name Input -->
+          <div class="space-y-1.5 flex flex-col font-sans">
+            <label for="form-name" class="font-mono text-[9px] uppercase tracking-wider text-wood">
+              {t('contact.form.name')}
+            </label>
+            <input
+              type="text"
+              id="form-name"
+              required
+              class="w-full px-4 py-3 rounded-md border border-hairline bg-white/70 focus:outline-none focus:border-walnut text-sm font-sans"
+              placeholder="e.g. Amit Kumar"
+            />
+          </div>
+
+          <!-- Phone Input -->
+          <div class="space-y-1.5 flex flex-col font-sans">
+            <label for="form-phone" class="font-mono text-[9px] uppercase tracking-wider text-wood">
+              {t('contact.form.phone')}
+            </label>
+            <input
+              type="tel"
+              id="form-phone"
+              required
+              class="w-full px-4 py-3 rounded-md border border-hairline bg-white/70 focus:outline-none focus:border-walnut text-sm font-sans"
+              placeholder="e.g. 9876543210"
+            />
+          </div>
+
+          <!-- Location Area Input -->
+          <div class="space-y-1.5 flex flex-col font-sans">
+            <label for="form-area" class="font-mono text-[9px] uppercase tracking-wider text-wood">
+              {t('contact.form.location')}
+            </label>
+            <input
+              type="text"
+              id="form-area"
+              required
+              class="w-full px-4 py-3 rounded-md border border-hairline bg-white/70 focus:outline-none focus:border-walnut text-sm font-sans"
+              placeholder="e.g. Boring Road, Kankarbagh"
+            />
+          </div>
+
+          <!-- Services dropdown selection -->
+          <div class="space-y-1.5 flex flex-col font-sans">
+            <label for="form-service" class="font-mono text-[9px] uppercase tracking-wider text-wood">
+              {t('contact.form.service')}
+            </label>
+            <select
+              id="form-service"
+              class="w-full px-4 py-3 rounded-md border border-hairline bg-white/70 focus:outline-none focus:border-walnut text-sm font-sans"
+            >
+              <option value="Modular Wardrobes">Modular Wardrobes</option>
+              <option value="Wooden Doors & Frames">Wooden Doors & Frames</option>
+              <option value="Beds & Bedroom Furniture">Beds & Bedroom Furniture</option>
+              <option value="Kitchen Cabinets & TV Units">Kitchen Cabinets & TV Units</option>
+              <option value="Concrete Exterior Cornice Molds">Concrete Exterior Cornice Molds</option>
+              <option value="Complete Home Carpentry">Complete Home Carpentry</option>
+              <option value="Furniture Repair & Polish">Furniture Repair & Polish</option>
+            </select>
+          </div>
+
+          <!-- Message details -->
+          <div class="space-y-1.5 flex flex-col font-sans">
+            <label for="form-message" class="font-mono text-[9px] uppercase tracking-wider text-wood">
+              {t('contact.form.message')}
+            </label>
+            <textarea
+              id="form-message"
+              rows="4"
+              required
+              class="w-full px-4 py-3 rounded-md border border-hairline bg-white/70 focus:outline-none focus:border-walnut text-sm font-sans resize-none"
+              placeholder="e.g. I want to build a sliding wardrobe with laminate finish..."
+            ></textarea>
+          </div>
+
+          <!-- Submit button (Emerald-600 pill) -->
+          <button
+            type="submit"
+            class="w-full inline-flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-4 rounded-xl shadow-lg transition-colors cursor-pointer"
+          >
+            <Send class="w-4 h-4 text-white" />
+            <span>{t('contact.form.submit')}</span>
+          </button>
+        </form>
+
+      </div>
+
+    </div>
+  </section>
+
+</Layout>
+
+<script define:vars={{ whatsappNumber: CONTACT.whatsapp.replace('+', '') }}>
+  function initContactForm() {
+    const form = document.getElementById('whatsapp-inquiry-form');
+    if (!form) return;
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const name = document.getElementById('form-name').value;
+      const phone = document.getElementById('form-phone').value;
+      const area = document.getElementById('form-area').value;
+      const service = document.getElementById('form-service').value;
+      const details = document.getElementById('form-message').value;
+
+      const text = `*New Custom Woodwork Inquiry*\n\n` +
+                   `• *Name:* ${name}\n` +
+                   `• *Phone Number:* ${phone}\n` +
+                   `• *Location Area:* ${area}\n` +
+                   `• *Service Required:* ${service}\n` +
+                   `• *Details:* ${details}`;
+
+      const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(text)}`;
+      window.open(whatsappUrl, '_blank');
+    });
+  }
+
+  initContactForm();
+  document.addEventListener('astro:page-load', initContactForm);
+</script>

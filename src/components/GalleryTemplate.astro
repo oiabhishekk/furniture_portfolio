@@ -1,0 +1,278 @@
+---
+import Layout from '../layouts/Layout.astro';
+import BeforeAfter from './BeforeAfter.astro';
+import { useTranslations } from '../data/translations';
+import { X, ZoomIn, ChevronLeft, ChevronRight, Phone, MessageCircle } from '@lucide/astro';
+import { GALLERY } from '@/config/gallery';
+import { CONTACT } from '@/config/contact';
+
+interface Props {
+  lang: 'en' | 'hi';
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+// Gallery Items mapped from config
+const galleryImages = GALLERY.map(img => ({
+  src: img.src,
+  category: img.category,
+  title: img.title[lang]
+}));
+
+const phoneNo = CONTACT.phone;
+const whatsappLink = `https://wa.me/${CONTACT.whatsapp.replace('+', '')}?text=${encodeURIComponent(
+  lang === 'hi'
+    ? 'नमस्ते संतोष जी, मैंने आपकी गैलरी में डिज़ाइनों को देखा। क्या आप मेरे स्थान पर भी आकर इस प्रकार का काम करने के लिए कोटेशन दे सकते हैं?'
+    : 'Hello Santosh Ji, I saw your design gallery. I would like to book a site visit for custom carpentry.'
+)}`;
+---
+
+<Layout
+  title={lang === 'hi' ? 'कस्टम डिज़ाइन गैलरी' : 'Design Gallery & Custom Carpentry Creations'}
+  description={lang === 'hi'
+    ? 'शानदार वार्डरोब, उत्कृष्ट लकड़ी के नक्काशीदार दरवाजे, कंक्रीट कॉर्निस और बेहतरीन सोफा डाइनिंग टेबल की तस्वीरें।'
+    : 'View pictures of sliding wardrobes, classic wooden carvings, concrete exterior cornice moldings, and dining tables made in Patna.'}
+  lang={lang}
+  canonicalPath={lang === 'hi' ? '/hi/gallery' : '/gallery'}
+>
+  
+  <!-- Page Header -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 text-center space-y-3">
+    <span class="font-mono eyebrow">05 / Showcase</span>
+    <h1 class="text-4xl sm:text-5xl font-serif font-medium tracking-tight text-walnut">
+      {lang === 'hi' ? 'हमारी काम और डिज़ाइन गैलरी.' : 'Design & Creation Gallery.'}
+    </h1>
+    <p class="text-base text-wood max-w-2xl mx-auto font-sans font-light">
+      {lang === 'hi'
+        ? 'लकड़ी के बेहतरीन पॉलिश कार्य (पहले और बाद में) और हमारे मुख्य डिज़ाइनों का विशाल संग्रह।'
+        : 'Explore our interactive before-and-after work and a full masonry gallery of modular designs, wardrobe structures, and exterior patterns.'}
+    </p>
+  </section>
+
+  <!-- BEFORE & AFTER SECTION -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-24">
+    <div class="text-center mb-10 space-y-2">
+      <span class="font-mono text-[9px] uppercase tracking-wider text-gold font-bold">RESTORATION INSIGHTS //</span>
+      <h2 class="text-2xl font-serif font-bold tracking-tight text-walnut">
+        {lang === 'hi' ? 'लकड़ी री-पॉलिशिंग और फिनिशिंग' : 'Wood Polishing Restoration'}
+      </h2>
+      <p class="text-xs text-wood font-mono">
+        {lang === 'hi' ? 'खींचे स्लाइडर को और देखें चमक में बदलाव' : 'Drag the slider below to compare raw wood vs finished PU melamine polish.'}
+      </p>
+    </div>
+    
+    <div class="grid grid-cols-1 gap-12 max-w-4xl mx-auto">
+      <BeforeAfter
+        beforeImage="/images/references/furniture/download-3.jpg"
+        afterImage="/images/references/furniture/mesa.jpg"
+        beforeLabel={lang === 'hi' ? 'खराब / खुरदरी लकड़ी' : 'Raw / Raw Cut Board'}
+        afterLabel={lang === 'hi' ? 'मेलामाइन चमकदार पॉलिश' : 'Melamine Finished Teak'}
+      />
+    </div>
+  </section>
+
+  <!-- MASONRY GALLERY WITH LIGHTBOX -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-24 border-t border-hairline pt-20">
+    <div class="text-center mb-10 space-y-2">
+      <span class="font-mono text-[9px] uppercase tracking-wider text-gold font-bold">DESIGN INSPIRATIONS //</span>
+      <h2 class="text-2xl font-serif font-bold tracking-tight text-walnut">
+        {lang === 'hi' ? 'डिज़न और विचार गैलरी' : 'Inspiration & Completed Gallery'}
+      </h2>
+    </div>
+
+    <!-- Gallery Categories filter button bar -->
+    <div class="flex items-center justify-start md:justify-center overflow-x-auto gap-3 mb-12 py-2 no-scrollbar">
+      <button class="gallery-filter-btn px-5 py-2 rounded-full text-[10px] font-mono uppercase tracking-widest bg-walnut text-[#FCFAF7] shadow-sm cursor-pointer" data-target="all">
+        {t('gallery.filter.all')}
+      </button>
+      <button class="gallery-filter-btn px-5 py-2 rounded-full text-[10px] font-mono uppercase tracking-widest bg-white border border-hairline text-wood hover:border-walnut cursor-pointer" data-target="wardrobe">
+        {t('gallery.filter.wardrobes')}
+      </button>
+      <button class="gallery-filter-btn px-5 py-2 rounded-full text-[10px] font-mono uppercase tracking-widest bg-white border border-hairline text-wood hover:border-walnut cursor-pointer" data-target="cornice">
+        {t('gallery.filter.cornice')}
+      </button>
+      <button class="gallery-filter-btn px-5 py-2 rounded-full text-[10px] font-mono uppercase tracking-widest bg-white border border-hairline text-wood hover:border-walnut cursor-pointer" data-target="furniture">
+        {t('gallery.filter.furniture')}
+      </button>
+    </div>
+
+    <!-- Masonry Grid -->
+    <div class="columns-1 sm:columns-2 md:columns-3 lg:columns-4 gap-6 space-y-6" id="gallery-grid">
+      {galleryImages.map((img, index) => (
+        <div
+          class="gallery-item break-inside-avoid relative overflow-hidden rounded-2xl border border-hairline group cursor-pointer shadow-sm hover:border-gold/40 hover:shadow-lg transition-all duration-300 bg-white p-2"
+          data-category={img.category}
+          data-index={index}
+        >
+          <img
+            src={img.src}
+            alt={img.title}
+            loading="lazy"
+            class="w-full object-cover rounded-xl transition-transform duration-700 ease-out group-hover:scale-[1.02]"
+          />
+          <div class="absolute inset-0 bg-gradient-to-t from-walnut/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-5 rounded-2xl">
+            <div class="flex items-center justify-between w-full text-white">
+              <div class="space-y-0.5">
+                <span class="font-mono text-[8px] uppercase tracking-widest text-gold font-bold">{img.category} //</span>
+                <h4 class="text-xs font-semibold text-white">{img.title}</h4>
+              </div>
+              <div class="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center backdrop-blur-md shrink-0">
+                <ZoomIn class="w-4 h-4 text-gold" />
+              </div>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- LIGHTBOX COMPONENT MODAL -->
+  <div
+    id="lightbox-modal"
+    class="fixed inset-0 z-[100] bg-black/95 flex items-center justify-center p-4 hidden opacity-0 transition-opacity duration-300"
+    role="dialog"
+    aria-modal="true"
+  >
+    <!-- Close button -->
+    <button id="lightbox-close" class="absolute top-6 right-6 text-white/70 hover:text-white p-2 focus:outline-none cursor-pointer" aria-label="Close Lightbox">
+      <X class="w-8 h-8" />
+    </button>
+
+    <!-- Nav buttons -->
+    <button id="lightbox-prev" class="absolute left-6 top-1/2 -translate-y-1/2 text-white/70 hover:text-white p-2 focus:outline-none hidden sm:block cursor-pointer" aria-label="Previous Image">
+      <ChevronLeft class="w-10 h-10" />
+    </button>
+    <button id="lightbox-next" class="absolute right-6 top-1/2 -translate-y-1/2 text-white/70 hover:text-white p-2 focus:outline-none hidden sm:block cursor-pointer" aria-label="Next Image">
+      <ChevronRight class="w-10 h-10" />
+    </button>
+
+    <!-- Content Box -->
+    <div class="max-w-4xl max-h-[80vh] flex flex-col items-center">
+      <img id="lightbox-img" src="" alt="" class="max-w-full max-h-[70vh] object-contain rounded-lg border border-gold/15" />
+      <p id="lightbox-caption" class="text-white font-mono text-xs uppercase tracking-wider mt-4 text-center"></p>
+    </div>
+  </div>
+
+</Layout>
+
+<script is:inline define:vars={{ galleryImages }}>
+  function initGallery() {
+    const filters = document.querySelectorAll('.gallery-filter-btn');
+    const items = document.querySelectorAll('.gallery-item');
+    
+    // Lightbox modal variables
+    const modal = document.getElementById('lightbox-modal');
+    const modalImg = document.getElementById('lightbox-img');
+    const modalCaption = document.getElementById('lightbox-caption');
+    const closeBtn = document.getElementById('lightbox-close');
+    const prevBtn = document.getElementById('lightbox-prev');
+    const nextBtn = document.getElementById('lightbox-next');
+    
+    let currentIdx = 0;
+    let visibleImages = [...galleryImages];
+
+    // Filter button click logic
+    filters.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        // Manage active classes
+        filters.forEach((b) => {
+          b.classList.remove('bg-walnut', 'text-[#FCFAF7]', 'shadow-sm');
+          b.classList.add('bg-white');
+        });
+        btn.classList.remove('bg-white');
+        btn.classList.add('bg-walnut', 'text-[#FCFAF7]', 'shadow-sm');
+
+        const targetCategory = btn.getAttribute('data-target');
+        
+        // Hide/Show items
+        items.forEach((item) => {
+          const itemCat = item.getAttribute('data-category');
+          const element = item;
+          if (targetCategory === 'all' || itemCat === targetCategory) {
+            element.style.display = 'block';
+          } else {
+            element.style.display = 'none';
+          }
+        });
+
+        // Filter visual indices array for lightbox navigation
+        if (targetCategory === 'all') {
+          visibleImages = [...galleryImages];
+        } else {
+          visibleImages = galleryImages.filter((img) => img.category === targetCategory);
+        }
+      });
+    });
+
+    // Lightbox open logic
+    items.forEach((item) => {
+      item.addEventListener('click', () => {
+        const itemIndexString = item.getAttribute('data-index');
+        if (itemIndexString === null) return;
+        const index = parseInt(itemIndexString, 10);
+        
+        const originalImage = galleryImages[index];
+        currentIdx = visibleImages.findIndex((img) => img.src === originalImage.src);
+
+        if (currentIdx !== -1) {
+          openLightbox(visibleImages[currentIdx]);
+        }
+      });
+    });
+
+    function openLightbox(imgObject) {
+      if (!modal || !modalImg || !modalCaption) return;
+      modalImg.src = imgObject.src;
+      modalCaption.textContent = `${imgObject.category.toUpperCase()} // ${imgObject.title}`;
+      modal.classList.remove('hidden');
+      setTimeout(() => {
+        modal.classList.add('opacity-100');
+      }, 50);
+    }
+
+    function closeLightbox() {
+      if (!modal) return;
+      modal.classList.remove('opacity-100');
+      setTimeout(() => {
+        modal.classList.add('hidden');
+      }, 300);
+    }
+
+    function navigateLightbox(direction) {
+      currentIdx += direction;
+      if (currentIdx >= visibleImages.length) currentIdx = 0;
+      if (currentIdx < 0) currentIdx = visibleImages.length - 1;
+      
+      const newImg = visibleImages[currentIdx];
+      if (modalImg && modalCaption && newImg) {
+        modalImg.src = newImg.src;
+        modalCaption.textContent = `${newImg.category.toUpperCase()} // ${newImg.title}`;
+      }
+    }
+
+    if (closeBtn) closeBtn.addEventListener('click', closeLightbox);
+    if (prevBtn) prevBtn.addEventListener('click', () => navigateLightbox(-1));
+    if (nextBtn) nextBtn.addEventListener('click', () => navigateLightbox(1));
+    
+    if (modal) {
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+          closeLightbox();
+        }
+      });
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (modal && !modal.classList.contains('hidden')) {
+        if (e.key === 'Escape') closeLightbox();
+        if (e.key === 'ArrowRight') navigateLightbox(1);
+        if (e.key === 'ArrowLeft') navigateLightbox(-1);
+      }
+    });
+  }
+
+  // Load handler
+  initGallery();
+  document.addEventListener('astro:page-load', initGallery);
+</script>
