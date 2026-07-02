@@ -1,0 +1,170 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { useTranslations } from '../data/translations';
+import { ChevronRight, Shield } from '@lucide/astro';
+import { BUSINESS } from '@/config/business';
+
+interface Props {
+  lang: 'en' | 'hi';
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<Layout
+  title={lang === 'hi' ? 'गोपनीयता नीति | पटना फर्नीचर' : 'Privacy Policy | Santosh Sharma Carpenter'}
+  description={lang === 'hi'
+    ? 'पटना फर्नीचर की गोपनीयता नीति - जानें कि हम आपकी व्यक्तिगत जानकारी की सुरक्षा कैसे करते हैं।'
+    : 'Privacy Policy for Santosh Sharma Carpenter - Learn how we collect, use, and protect your personal information.'}
+  lang={lang}
+  canonicalPath={lang === 'hi' ? '/hi/privacy' : '/privacy'}
+>
+  <!-- Breadcrumbs -->
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-6">
+    <nav class="flex items-center space-x-2 text-xs font-semibold text-wood/60">
+      <a href={lang === 'hi' ? '/hi' : '/'} class="hover:text-gold transition-colors">
+        {lang === 'hi' ? 'मुख्य पृष्ठ' : 'Home'}
+      </a>
+      <ChevronRight class="w-3.5 h-3.5 shrink-0" />
+      <span class="text-walnut font-bold">
+        {lang === 'hi' ? 'गोपनीयता नीति' : 'Privacy Policy'}
+      </span>
+    </nav>
+  </div>
+
+  <!-- Header -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-12 text-center space-y-3 border-b border-hairline relative">
+    <div class="absolute -bottom-1.5 left-8 w-3 h-3 border-b border-r border-gold/45"></div>
+    <div class="absolute -bottom-1.5 right-8 w-3 h-3 border-b border-l border-gold/45"></div>
+    
+    <div class="w-12 h-12 rounded-xl bg-gold/10 text-gold flex items-center justify-center mx-auto mb-2">
+      <Shield class="w-6 h-6" />
+    </div>
+    
+    <h1 class="text-4xl sm:text-5xl font-serif font-medium tracking-tight text-walnut">
+      {lang === 'hi' ? 'गोपनीयता नीति' : 'Privacy Policy'}
+    </h1>
+    <p class="text-xs text-wood uppercase tracking-widest font-mono">
+      {lang === 'hi' ? 'अंतिम अपडेट: जुलाई २०२६' : 'Last Updated: July 2026'}
+    </p>
+  </section>
+
+  <!-- Content -->
+  <section class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <div class="bg-white rounded-3xl p-8 md:p-12 border border-hairline shadow-sm space-y-8 text-sm sm:text-base text-wood leading-relaxed font-sans font-light">
+      
+      {lang === 'hi' ? (
+        // Hindi Privacy Clauses
+        <>
+          <div class="space-y-3">
+            <h2 class="text-xl font-serif font-bold text-walnut">१. परिचय</h2>
+            <p>
+              हम <strong>{BUSINESS.name.hi}</strong> पर आपकी गोपनीयता का सम्मान करते हैं। यह नीति बताती है कि जब आप हमारी वेबसाइट (<a href="https://patnafurniture.in" class="text-gold underline">patnafurniture.in</a>) पर आते हैं या हमारी बढ़ईगीरी सेवाओं का उपयोग करते हैं, तो हम आपकी जानकारी को कैसे एकत्र, उपयोग और सुरक्षित करते हैं।
+            </p>
+          </div>
+
+          <div class="space-y-3">
+            <h2 class="text-xl font-serif font-bold text-walnut">२. जानकारी जो हम एकत्र करते हैं</h2>
+            <p>
+              हम केवल वही जानकारी एकत्र करते हैं जो आप हमें स्वेच्छा से प्रदान करते हैं जब आप हमसे संपर्क करते हैं, साइट विजिट या कोटेशन का अनुरोध करते हैं। इसमें शामिल हो सकते हैं:
+            </p>
+            <ul class="list-disc pl-5 space-y-1">
+              <li>आपका नाम</li>
+              <li>फ़ोन/मोबाइल नंबर</li>
+              <li>साइट का पता (पटना सिटी या पटना क्षेत्र में आपका फ्लैट या प्लॉट)</li>
+              <li>फर्नीचर की आवश्यकताएं और डिज़ाइन की प्राथमिकताएं</li>
+            </ul>
+          </div>
+
+          <div class="space-y-3">
+            <h2 class="text-xl font-serif font-bold text-walnut">३. हम आपकी जानकारी का उपयोग कैसे करते हैं</h2>
+            <p>
+              हम एकत्रित जानकारी का उपयोग निम्नलिखित उद्देश्यों के लिए करते हैं:
+            </p>
+            <ul class="list-disc pl-5 space-y-1">
+              <li>फ्री साइट विजिट, नाप (मेज़रमेंट) और डिज़ाइन पर चर्चा करने के लिए।</li>
+              <li>आपको आपके पसंदीदा फर्नीचर प्रोजेक्ट (जैसे अलमारी, दरवाजा, डबल बेड) के लिए सटीक कोटेशन प्रदान करने के लिए।</li>
+              <li>व्हाट्सएप या फोन कॉल के माध्यम से आपके प्रश्नों का उत्तर देने के लिए।</li>
+            </ul>
+          </div>
+
+          <div class="space-y-3">
+            <h2 class="text-xl font-serif font-bold text-walnut">४. जानकारी साझा करना और सुरक्षा</h2>
+            <p>
+              हम आपकी व्यक्तिगत जानकारी को तीसरे पक्ष को बेचते या किराए पर नहीं देते हैं। आपकी जानकारी हमारे पास पूरी तरह से सुरक्षित रहती है और इसका उपयोग केवल आपके घर या साइट पर लकड़ी का काम करने के उद्देश्य से किया जाता है।
+            </p>
+          </div>
+
+          <div class="space-y-3">
+            <h2 class="text-xl font-serif font-bold text-walnut">५. हमसे संपर्क करें</h2>
+            <p>
+              यदि आपके पास इस गोपनीयता नीति या अपनी व्यक्तिगत जानकारी के बारे में कोई प्रश्न हैं, तो आप बेझिझक हमसे संपर्क कर सकते हैं:
+            </p>
+            <p class="font-mono text-xs text-gold">
+              ईमेल: abhiiiworks@gmail.com<br />
+              फ़ोन/व्हाट्सएप: +९१ ६२०२०३३३४६<br />
+              पता: पटना सिटी, गुरु गोविंद सिंह पथ, पटना, बिहार - ८००००८
+            </p>
+          </div>
+        </>
+      ) : (
+        // English Privacy Clauses
+        <>
+          <div class="space-y-3">
+            <h2 class="text-xl font-serif font-bold text-walnut">1. Introduction</h2>
+            <p>
+              At <strong>{BUSINESS.name.en}</strong>, we respect your privacy. This policy explains how we collect, use, and protect your personal details when you visit our website (<a href="https://patnafurniture.in" class="text-gold underline">patnafurniture.in</a>) or request our custom carpentry and modular furniture services in Patna.
+            </p>
+          </div>
+
+          <div class="space-y-3">
+            <h2 class="text-xl font-serif font-bold text-walnut">2. Information We Collect</h2>
+            <p>
+              We collect information that you voluntarily provide to us when you contact us, request a quote, or book a site visit. This may include:
+            </p>
+            <ul class="list-disc pl-5 space-y-1">
+              <li>Your Name</li>
+              <li>Phone/Mobile number</li>
+              <li>Site address in Patna (for measurements)</li>
+              <li>Project details and furniture preferences</li>
+            </ul>
+          </div>
+
+          <div class="space-y-3">
+            <h2 class="text-xl font-serif font-bold text-walnut">3. How We Use Your Information</h2>
+            <p>
+              We use the collected information solely to:
+            </p>
+            <ul class="list-disc pl-5 space-y-1">
+              <li>Schedule free site visits and execute precise measurements.</li>
+              <li>Formulate accurate price estimates and wood quotations.</li>
+              <li>Respond to your WhatsApp inquiries or phone calls.</li>
+              <li>Deliver custom modular wardrobes, beds, cabinets, or wood interior installations.</li>
+            </ul>
+          </div>
+
+          <div class="space-y-3">
+            <h2 class="text-xl font-serif font-bold text-walnut">4. Information Protection</h2>
+            <p>
+              We do not sell, rent, or trade your personal data. We are a direct local carpentry team, and your details are only accessed by Santosh Sharma and our direct technicians to fulfill your order.
+            </p>
+          </div>
+
+          <div class="space-y-3">
+            <h2 class="text-xl font-serif font-bold text-walnut">5. Contact Us</h2>
+            <p>
+              If you have any questions about this Privacy Policy, feel free to contact us:
+            </p>
+            <p class="font-mono text-xs text-gold">
+              Email: abhiiiworks@gmail.com<br />
+              Phone/WhatsApp: +91 6202033346<br />
+              Address: Patna city, Guru govind singh path, near Happiness celebration hall, Patna, Bihar - 800008
+            </p>
+          </div>
+        </>
+      )}
+
+    </div>
+  </section>
+</Layout>

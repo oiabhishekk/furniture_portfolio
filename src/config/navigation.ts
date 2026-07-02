@@ -55,16 +55,12 @@ export const FOOTER_SUPPORT: NavItem[] = [
     path: '#'
   },
   {
-    label: { en: 'Career', hi: 'करियर' },
-    path: '#'
-  },
-  {
     label: { en: 'FAQs', hi: 'अक्सर पूछे जाने वाले प्रश्न' },
     path: '#faq'
   },
   {
     label: { en: 'Privacy Policy', hi: 'गोपनीयता नीति' },
-    path: '#'
+    path: '/privacy'
   },
   {
     label: { en: 'Contact', hi: 'सम्पर्क' },

@@ -279,29 +279,10 @@ const canonicalPath = lang === 'hi' ? '/hi' : '';
         </h2>
       </div>
 
-      <!-- Grid of 6 white service cards -->
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {services.slice(0, 6).map((service) => (
-          <div class="bg-white text-walnut p-8 rounded-2xl shadow-sm border border-hairline flex flex-col justify-between h-full hover:-translate-y-1 transition-all duration-300 group">
-            <div class="space-y-4">
-              <!-- Gold line icon -->
-              <div class="w-10 h-10 rounded bg-gold/5 flex items-center justify-center text-gold">
-                <Hammer class="w-5 h-5" />
-              </div>
-              <h3 class="text-lg font-bold text-walnut font-sans">{service.title}</h3>
-              <p class="text-xs text-wood leading-relaxed font-sans font-light line-clamp-3">
-                {service.description}
-              </p>
-            </div>
-            
-            <a
-              href={lang === 'hi' ? `/hi/services/${service.slug}` : `/services/${service.slug}`}
-              class="inline-flex items-center space-x-1.5 font-mono text-[10px] uppercase font-bold text-gold hover:text-gold-hover pt-6 tracking-widest"
-            >
-              <span>{lang === 'hi' ? 'विवरण पढ़ें' : 'Read More'}</span>
-              <ArrowRight class="w-3.5 h-3.5" />
-            </a>
-          </div>
+      <!-- Grid of all 8 detailed service cards -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+        {services.map((service) => (
+          <ServiceCard service={service} lang={lang} />
         ))}
       </div>
 
@@ -405,7 +386,7 @@ const canonicalPath = lang === 'hi' ? '/hi' : '';
           <div class="space-y-1">
             <h3 class="text-base font-bold text-walnut font-serif">01. Select Design</h3>
             <p class="text-xs text-wood leading-relaxed font-sans font-light">
-              {lang === 'hi' ? 'डिज़ाइन चुनें या अपनी पसंद साझा करें।' : 'Discuss wardrobe or bed models with my father.'}
+              {lang === 'hi' ? 'डिज़ाइन चुनें या अपनी पसंद साझा करें।' : 'Discuss wardrobe or bed models with us.'}
             </p>
           </div>
         </div>

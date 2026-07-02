@@ -1,0 +1,71 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { Phone, MessageCircle, ArrowRight, Home, Wrench } from '@lucide/astro';
+import { CONTACT } from '@/config/contact';
+
+const phoneNo = CONTACT.phone;
+const whatsappLink = `https://wa.me/${CONTACT.whatsapp.replace('+', '')}?text=${encodeURIComponent(
+  'Hello Santosh Ji, I ran into a missing page on your website and would like to ask about custom woodwork.'
+)}`;
+---
+
+<Layout
+  title="404 - Page Out of Alignment"
+  description="The page you are looking for has been moved, renamed, or is currently out of alignment."
+  lang="en"
+  canonicalPath="/404"
+>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 flex flex-col items-center justify-center min-h-[60vh] text-center relative overflow-hidden">
+    
+    <!-- Blueprint grid decorative markings behind -->
+    <div class="absolute inset-0 opacity-[0.03] pointer-events-none bg-[radial-gradient(#C18B45_1px,transparent_1px)] [background-size:16px_16px]"></div>
+    
+    <div class="max-w-xl space-y-8 relative z-10">
+      
+      <!-- Premium Badge/Icon combination -->
+      <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full border border-gold/30 bg-gold/5 text-gold text-xs font-mono uppercase tracking-wider">
+        <Wrench class="w-3.5 h-3.5" />
+        <span>Measurement Error // 404</span>
+      </div>
+
+      <!-- Giant 404 number styled like wood joinery border -->
+      <div class="relative py-4">
+        <h1 class="text-8xl sm:text-9xl font-serif font-black tracking-tighter text-walnut select-none">
+          404
+        </h1>
+        <div class="absolute inset-x-0 top-1/2 -translate-y-1/2 flex justify-center pointer-events-none">
+          <div class="w-32 h-[1px] bg-gold/50"></div>
+        </div>
+      </div>
+
+      <!-- Title / Subtitle in English and Hindi -->
+      <div class="space-y-4">
+        <h2 class="text-2xl sm:text-3xl font-serif font-bold text-walnut">
+          This Page is Out of Alignment.
+        </h2>
+        <p class="text-sm sm:text-base text-wood leading-relaxed font-sans font-light">
+          We pride ourselves on precise dimensions, but this particular path seems to have been cut from our sitemap, moved, or planed away.
+        </p>
+        
+        <!-- Hindi Translation Card (Integrated) -->
+        <div class="p-4 bg-canvas-soft-2/50 rounded-2xl border border-hairline/60 text-xs sm:text-sm text-wood/80 max-w-md mx-auto italic mt-4 font-hindi">
+          "हम सटीक नाप और फिटिंग के लिए जाने जाते हैं, लेकिन लगता है कि यह लिंक टूट गया है या हमारे नक्शे में नहीं है।"
+        </div>
+      </div>
+
+      <!-- Quick Action Buttons -->
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-3 pt-6">
+        <a href="/" class="btn-primary w-full sm:w-auto">
+          <Home class="w-4 h-4 text-white" />
+          <span>Go Back Home</span>
+        </a>
+        <a href={whatsappLink} target="_blank" rel="noopener noreferrer" class="btn-secondary w-full sm:w-auto">
+          <MessageCircle class="w-4 h-4 text-gold" />
+          <span>Contact Us on WhatsApp</span>
+        </a>
+      </div>
+
+    </div>
+
+  </div>
+</Layout>

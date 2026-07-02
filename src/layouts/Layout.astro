@@ -41,15 +41,15 @@ const defaultSchema = {
   'address': {
     '@type': 'PostalAddress',
     'streetAddress': CONTACT.address[lang].split(',').slice(0, -2).join(',').trim(),
-    'addressLocality': 'Patna',
+    'addressLocality': 'Patna City, Patna',
     'addressRegion': 'Bihar',
-    'postalCode': '800020',
+    'postalCode': '800008',
     'addressCountry': 'IN'
   },
   'geo': {
     '@type': 'GeoCoordinates',
-    'latitude': 25.5941,
-    'longitude': 85.1376
+    'latitude': 25.5957,
+    'longitude': 85.2289
   },
   'url': siteUrl,
   'openingHoursSpecification': {
@@ -89,6 +89,7 @@ const localizedNav = (path: string) => {
     <!-- SEO Meta Tags -->
     <title>{title} | {BUSINESS.name[lang]}</title>
     <meta name="description" content={description} />
+    <meta name="keywords" content={SEO.keywords[lang].join(', ')} />
     <link rel="canonical" href={fullCanonicalUrl} />
 
     <!-- Open Graph -->
@@ -113,11 +114,11 @@ const localizedNav = (path: string) => {
       rel="stylesheet"
     />
 
-    <!-- Local SEO Targeting Patna -->
+    <!-- Local SEO Targeting Patna & Patna City -->
     <meta name="geo.region" content="IN-BR" />
-    <meta name="geo.placename" content="Patna" />
-    <meta name="geo.position" content="25.5941;85.1376" />
-    <meta name="ICBM" content="25.5941, 85.1376" />
+    <meta name="geo.placename" content="Patna City, Patna" />
+    <meta name="geo.position" content="25.5957;85.2289" />
+    <meta name="ICBM" content="25.5957, 85.2289" />
 
     <!-- Schema.org Structured Data -->
     <script type="application/ld+json" set:html={JSON.stringify(finalSchema)} />
@@ -208,7 +209,9 @@ const localizedNav = (path: string) => {
         <div class="pt-8 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between text-xs text-[#A29B8F]/50 gap-4">
           <p>Copyright &copy; {new Date().getFullYear()} - Developed by {BUSINESS.owner[lang]} team.</p>
           <div class="flex items-center space-x-4">
-            <a href="#" class="hover:text-white transition-colors">Privacy Policy</a>
+            <a href={localizedNav('/privacy')} class="hover:text-white transition-colors">
+              {lang === 'hi' ? 'गोपनीयता नीति' : 'Privacy Policy'}
+            </a>
             <span>|</span>
             <a href="#" class="hover:text-white transition-colors">Terms & Services</a>
           </div>
